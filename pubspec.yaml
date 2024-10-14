@@ -1,0 +1,39 @@
+name: bloc_to_do
+
+#! 'Add here a normal description'
+description: ""
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+#* for ui fetures
+  flutter_svg: ^2.0.10+1
+  awesome_snackbar_content: ^0.1.4
+  gap: ^3.0.1
+
+#* for Bloc 
+  flutter_bloc: ^8.1.6
+  bloc_test: ^9.1.7
+  equatable: ^2.0.5
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - lib/assets/img/HomeFrame.png
