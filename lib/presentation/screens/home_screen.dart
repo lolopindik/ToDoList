@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:bloc_to_do/constants/preferences.dart';
-import 'package:gap/gap.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -33,25 +32,67 @@ class HomeScreen extends StatelessWidget {
           ),
           Positioned.fill(
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 15,
-                vertical: MediaQuery.of(context).size.height * 0.075,
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.075,
+                left: 15,
+                right: 15,
               ),
-              child: const Column(
+              child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    //* need to implement here the data
-                    child: Text(
-                      '***Сalendar Data***',
-                      style: ToDoTextStyles.whiteBold16,
+                  const Text(
+                    '***Сalendar Data***',
+                    style: ToDoTextStyles.white16,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+                  const Text(
+                    'Bloc ToDo List',
+                    style: ToDoTextStyles.white30,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.30,
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        //! color: ToDoColors.mainColor,
+                        borderRadius: BorderRadius.circular(30)),
+                  ),
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      child: Text(
+                        'Completed',
+                        style: ToDoTextStyles.black16,
+                      ),
                     ),
                   ),
-                  Gap(10),
-                  Text(
-                    'Bloc ToDo List',
-                    style: ToDoTextStyles.whiteBold30,
-                  )
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.30,
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        //! color: ToDoColors.mainColor,
+                        borderRadius: BorderRadius.circular(30)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: ElevatedButton(
+                      //todo: add navigation on  button click
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        minimumSize: WidgetStateProperty.all(Size(
+                            MediaQuery.of(context).size.width * 1,
+                            MediaQuery.of(context).size.height * 0.055)),
+                        backgroundColor:
+                            WidgetStateProperty.all(ToDoColors.seedColor),
+                      ),
+                      child: const Text(
+                        'Add new task',
+                        style: ToDoTextStyles.white16,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -17,7 +17,6 @@ dependencies:
 #* for ui fetures
   flutter_svg: ^2.0.10+1
   awesome_snackbar_content: ^0.1.4
-  gap: ^3.0.1
 
 #* for Bloc 
   flutter_bloc: ^8.1.6

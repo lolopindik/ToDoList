@@ -6,6 +6,10 @@ class ToDoColors {
 }
 
 class ToDoTextStyles {
-  static const TextStyle whiteBold30 = TextStyle(color: Colors.white, fontSize: 30);
-  static const TextStyle whiteBold16 = TextStyle(color: Colors.white, fontSize: 16);
+  static const TextStyle white30 =
+      TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w600);
+  static const TextStyle white16 =
+      TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600);
+  static const TextStyle black16 =
+      TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600);
 }
