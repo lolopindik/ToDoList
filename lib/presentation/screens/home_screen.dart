@@ -57,6 +57,21 @@ class HomeScreen extends StatelessWidget {
                         color: Colors.red,
                         //! color: ToDoColors.mainColor,
                         borderRadius: BorderRadius.circular(30)),
+                    child: Center(
+                      child: ListView.builder(
+                          itemCount: 10,
+                          itemBuilder: (context, index) {
+                            return Container(
+                                margin:
+                                    const EdgeInsets.only(top: 10, left: 20),
+                                width: 100,
+                                height: 40,
+                                child: const Text(
+                                  'Lorem lorem lorem lorem lorem lorem',
+                                  style: ToDoTextStyles.white16,
+                                ));
+                          }),
+                    ),
                   ),
                   const Align(
                     alignment: Alignment.topLeft,
@@ -78,8 +93,8 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: ElevatedButton(
-                      //todo: add navigation on  button click
-                      onPressed: () {},
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed('/add_task'),
                       style: ButtonStyle(
                         minimumSize: WidgetStateProperty.all(Size(
                             MediaQuery.of(context).size.width * 1,
