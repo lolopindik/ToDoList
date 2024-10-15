@@ -1,3 +1,4 @@
+import 'package:bloc_to_do/presentation/animations/fade_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_to_do/constants/preferences.dart';
 import 'package:intl/intl.dart';
@@ -40,14 +41,20 @@ class HomeScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Text(
-                    DateFormat('MMMM dd, y').format(DateTime.now()),
-                    style: ToDoTextStyles.white16,
+                  FadeAnimation().createAnimation(
+                    context,
+                    Text(
+                      DateFormat('MMMM dd, y').format(DateTime.now()),
+                      style: ToDoTextStyles.white16,
+                    ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.025),
-                  const Text(
-                    'Bloc ToDo List',
-                    style: ToDoTextStyles.white30,
+                  FadeAnimation().createAnimation(
+                    context,
+                    const Text(
+                      'Bloc ToDo List',
+                      style: ToDoTextStyles.white30,
+                    ),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.02,
