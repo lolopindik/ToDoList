@@ -40,7 +40,8 @@ class HomeScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Text(DateFormat('MMMM dd, y').format(DateTime.now()),
+                  Text(
+                    DateFormat('MMMM dd, y').format(DateTime.now()),
                     style: ToDoTextStyles.white16,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.025),
@@ -98,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                       style: ButtonStyle(
                         minimumSize: WidgetStateProperty.all(Size(
                             MediaQuery.of(context).size.width * 1,
-                            MediaQuery.of(context).size.height * 0.055)),
+                            MediaQuery.of(context).size.height * 0.06)),
                         backgroundColor:
                             WidgetStateProperty.all(ToDoColors.seedColor),
                       ),
