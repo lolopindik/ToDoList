@@ -1,10 +1,9 @@
-import 'package:bloc_to_do/presentation/screens/home_screen.dart';
-import 'package:bloc_to_do/presentation/screens/task_screen.dart';
+import 'package:bloc_to_do/presentation/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -12,17 +11,15 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  
+  MyApp({super.key});
+
+  final AppRouter _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/home',
-      routes: {
-        '/home': (context) => const HomeScreen(),
-        '/add_task': (context) => const TaskScreen(),
-      },
+      onGenerateRoute: _appRouter.onGenerateRoute,
     );
   }
 }
