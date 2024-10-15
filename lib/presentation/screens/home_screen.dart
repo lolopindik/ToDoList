@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bloc_to_do/constants/preferences.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -39,8 +40,7 @@ class HomeScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const Text(
-                    '***Сalendar Data***',
+                  Text(DateFormat('MMMM dd, y').format(DateTime.now()),
                     style: ToDoTextStyles.white16,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.025),
