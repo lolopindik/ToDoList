@@ -84,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                   const Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 15),
+                      padding: EdgeInsets.symmetric(vertical: 24),
                       child: Text(
                         'Completed',
                         style: ToDoTextStyles.black16,

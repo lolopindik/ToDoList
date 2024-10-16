@@ -40,3 +40,6 @@ flutter:
 
   assets:
     - lib/assets/img/HomeFrame.png
+    - lib/assets/icons/Category=Event.svg
+    - lib/assets/icons/Category=Goal.svg
+    - lib/assets/icons/Category=Task.svg
