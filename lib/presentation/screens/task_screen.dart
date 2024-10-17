@@ -75,6 +75,7 @@ class TaskScreen extends StatelessWidget {
                     child: Text('Task Title', style: ToDoTextStyles.black16),
                   ),
                   const TextField(
+                    maxLength: 30,
                     decoration: InputDecoration(
                       hintText: 'Task Title',
                       border: OutlineInputBorder(
@@ -85,7 +86,7 @@ class TaskScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24),
+                    padding: const EdgeInsets.only(bottom: 24),
                     child: Row(
                       children: [
                         const Text(
@@ -115,6 +116,60 @@ class TaskScreen extends StatelessWidget {
                             ))
                       ],
                     ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('Date', style: ToDoTextStyles.black16),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            child: const TextField(
+                              decoration: InputDecoration(
+                                suffixIcon: Icon(Icons.calendar_today_outlined),
+                                iconColor: ToDoColors.seedColor,
+                                hintText: 'Date',
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: ToDoColors.mainColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('Time', style: ToDoTextStyles.black16),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            child: const TextField(
+                              decoration: InputDecoration(
+                                suffixIcon: Icon(Icons.timer_sharp), 
+                                hintText: 'Time',
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: ToDoColors.mainColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   )
                 ],
               ),
