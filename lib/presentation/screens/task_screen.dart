@@ -1,5 +1,7 @@
+import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_to_do/constants/preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class TaskScreen extends StatelessWidget {
@@ -130,16 +132,45 @@ class TaskScreen extends StatelessWidget {
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.45,
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                suffixIcon: Icon(Icons.calendar_today_outlined),
-                                iconColor: ToDoColors.seedColor,
-                                hintText: 'Date',
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: ToDoColors.mainColor,
-                                  ),
-                                ),
+                            child: BlocProvider(
+                              create: (_) => DatepickerBloc(),
+                              child:
+                                  BlocBuilder<DatepickerBloc, DatepickerState>(
+                                builder: (context, state) {
+                                  final dateBloc =
+                                      BlocProvider.of<DatepickerBloc>(context);
+
+                                  return GestureDetector(
+                                    onTap: () async {
+                                      DateTime? pickedDate =
+                                          await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(2000),
+                                        lastDate: DateTime(2101),
+                                      );
+                                      if (pickedDate != null) {
+                                        dateBloc
+                                            .add(DateSelectedEvent(pickedDate));
+                                      }
+                                    },
+                                    child: AbsorbPointer(
+                                      child: TextField(
+                                        controller: dateBloc.dateController,
+                                        decoration: const InputDecoration(
+                                          suffixIcon: Icon(
+                                              Icons.calendar_today_outlined),
+                                          hintText: 'Date',
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: ToDoColors.mainColor,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           ),
@@ -157,7 +188,7 @@ class TaskScreen extends StatelessWidget {
                             width: MediaQuery.of(context).size.width * 0.45,
                             child: const TextField(
                               decoration: InputDecoration(
-                                suffixIcon: Icon(Icons.timer_sharp), 
+                                suffixIcon: Icon(Icons.timer_sharp),
                                 hintText: 'Time',
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(

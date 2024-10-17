@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                   FadeAnimation().createAnimation(
                     context,
                     Text(
-                      DateFormat('MMMM dd, y').format(DateTime.now()),
+                      DateFormat('Месяц День, Год').format(DateTime.now()),
                       style: ToDoTextStyles.white16,
                     ),
                   ),

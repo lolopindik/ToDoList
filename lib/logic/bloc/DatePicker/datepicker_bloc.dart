@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,15 +8,13 @@ part 'datepicker_state.dart';
 class DatepickerBloc extends Bloc<DatepickerEvent, DatepickerState> {
   final TextEditingController dateController = TextEditingController();
 
-  DatepickerBloc() : super(DatepickerInitial());
+  DatepickerBloc() : super(DatepickerInitial()) {
+    on<DateSelectedEvent>(_onDateSelected);
+  }
 
-  Stream<DatepickerState> mapEventToState(
-    DatepickerEvent event,
-  ) async* {
-    if (event is DateSelectedEvent) {
-      dateController.text = "${event.selectedDate.toLocal()}".split(' ')[0];
-      yield DatepickerSelected(event.selectedDate);
-    }
+  void _onDateSelected(DateSelectedEvent event, Emitter<DatepickerState> emit) {
+    dateController.text = "${event.selectedDate.toLocal()}".split(' ')[0];
+    emit(DatepickerSelected(event.selectedDate));
   }
 
   @override
@@ -26,4 +23,3 @@ class DatepickerBloc extends Bloc<DatepickerEvent, DatepickerState> {
     return super.close();
   }
 }
-
