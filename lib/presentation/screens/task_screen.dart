@@ -1,5 +1,6 @@
 import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
+import 'package:bloc_to_do/presentation/animations/scale_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_to_do/constants/preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,12 +29,14 @@ class TaskScreen extends StatelessWidget {
                     margin: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.065),
                     width: MediaQuery.of(context).size.width * 1,
-                    child: const Center(
-                      child: Text(
+                    child: Center(
+                        child: ScaleAnimation().createAnimation(
+                      context,
+                      Text(
                         'Add new task',
                         style: ToDoTextStyles.white24,
                       ),
-                    ),
+                    )),
                   ),
                 ),
               ),
