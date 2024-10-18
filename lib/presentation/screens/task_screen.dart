@@ -17,12 +17,22 @@ class TaskScreen extends StatelessWidget {
           Column(
             children: [
               Expanded(
-                flex: 1,
                 child: Container(
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('lib/assets/img/HomeFrame.png'),
                       fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.065),
+                    width: MediaQuery.of(context).size.width * 1,
+                    child: const Center(
+                      child: Text(
+                        'Add new task',
+                        style: ToDoTextStyles.white24,
+                      ),
                     ),
                   ),
                 ),
@@ -45,32 +55,17 @@ class TaskScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: CircleAvatar(
-                          backgroundColor: ToDoColors.mainColor,
-                          radius: MediaQuery.of(context).size.height * 0.038,
-                          child: IconButton(
-                            onPressed: () => Navigator.pop(context),
-                            icon: Icon(Icons.close_rounded,
-                                size:
-                                    MediaQuery.of(context).size.height * 0.05),
-                          ),
-                        ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: CircleAvatar(
+                      backgroundColor: ToDoColors.mainColor,
+                      radius: MediaQuery.of(context).size.height * 0.038,
+                      child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: Icon(Icons.close_rounded,
+                            size: MediaQuery.of(context).size.height * 0.05),
                       ),
-                      const Flexible(
-                        flex: 2,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Add new task',
-                            style: ToDoTextStyles.white24,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.052),
                   const Align(
