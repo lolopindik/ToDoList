@@ -1,4 +1,5 @@
 import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
+import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_to_do/constants/preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -150,8 +151,9 @@ class TaskScreen extends StatelessWidget {
                                         lastDate: DateTime(2101),
                                       );
                                       if (pickedDate != null) {
-                                        dateBloc
-                                            .add(DateSelectedEvent(pickedDate));
+                                        dateBloc.add(DateSelectedEvent(
+                                          pickedDate,
+                                        ));
                                       }
                                     },
                                     child: AbsorbPointer(
@@ -186,15 +188,47 @@ class TaskScreen extends StatelessWidget {
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.45,
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                suffixIcon: Icon(Icons.timer_sharp),
-                                hintText: 'Time',
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: ToDoColors.mainColor,
-                                  ),
-                                ),
+                            child: BlocProvider(
+                              create: (_) => TimepickerBloc(),
+                              child:
+                                  BlocBuilder<TimepickerBloc, TimepickerState>(
+                                builder: (context, state) {
+                                  final timeBloc =
+                                      BlocProvider.of<TimepickerBloc>(context);
+                                  return GestureDetector(
+                                    onTap: () async {
+                                      final timeBloc =
+                                          BlocProvider.of<TimepickerBloc>(
+                                              context);
+                                      TimeOfDay? pickedTime =
+                                          await showTimePicker(
+                                        context: context,
+                                        initialTime: TimeOfDay.now(),
+                                      );
+                                      if (pickedTime != null) {
+                                        final formattedTime =
+                                            // ignore: use_build_context_synchronously
+                                            pickedTime.format(context);
+                                        timeBloc.add(TimeSelectedEvent(
+                                            pickedTime, formattedTime));
+                                      }
+                                    },
+                                    child: AbsorbPointer(
+                                      child: TextField(
+                                        controller: timeBloc.timeController,
+                                        decoration: const InputDecoration(
+                                          suffixIcon: Icon(Icons.timer_sharp),
+                                          hintText: 'Time',
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: ToDoColors.mainColor,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           ),

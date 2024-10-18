@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                   FadeAnimation().createAnimation(
                     context,
                     Text(
-                      DateFormat('Месяц День, Год').format(DateTime.now()),
+                      DateFormat('MMMM d, yyy').format(DateTime.now()),
                       style: ToDoTextStyles.white16,
                     ),
                   ),
@@ -62,8 +62,8 @@ class HomeScreen extends StatelessWidget {
                   Container(
                     height: MediaQuery.of(context).size.height * 0.30,
                     decoration: BoxDecoration(
-                        color: Colors.red,
-                        //! color: ToDoColors.mainColor,
+                        //!color: Colors.red, |for test|
+                        color: ToDoColors.mainColor,
                         borderRadius: BorderRadius.circular(30)),
                     child: Center(
                       child: ListView.builder(
@@ -71,12 +71,12 @@ class HomeScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return Container(
                                 margin:
-                                    const EdgeInsets.only(top: 10, left: 20),
+                                    const EdgeInsets.only(top: 5, left: 20, bottom: 5),
                                 width: 100,
                                 height: 40,
                                 child: const Text(
                                   'Lorem lorem lorem lorem lorem lorem',
-                                  style: ToDoTextStyles.white16,
+                                  style: ToDoTextStyles.black16,
                                 ));
                           }),
                     ),
@@ -94,9 +94,24 @@ class HomeScreen extends StatelessWidget {
                   Container(
                     height: MediaQuery.of(context).size.height * 0.30,
                     decoration: BoxDecoration(
-                        color: Colors.red,
-                        //! color: ToDoColors.mainColor,
+                        //!color: Colors.red, |for test|
+                        color: ToDoColors.mainColor,
                         borderRadius: BorderRadius.circular(30)),
+                        child: Center(
+                          child: ListView.builder(
+                          itemCount: 10,
+                          itemBuilder: (context, index) {
+                            return Container(
+                                margin:
+                                    const EdgeInsets.only(top: 5, left: 20, bottom: 5),
+                                width: 100,
+                                height: 40,
+                                child: const Text(
+                                  'Lorem lorem lorem lorem lorem lorem',
+                                  style: ToDoTextStyles.black16,
+                                ));
+                          }),
+                        ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 30),

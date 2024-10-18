@@ -4,8 +4,10 @@ abstract class TimepickerEvent {
   const TimepickerEvent();
 }
 
-class DateSelectedEvent extends TimepickerEvent {
-  final DateTime selectedTime;
+class TimeSelectedEvent extends TimepickerEvent {
+  final TimeOfDay selectedTime;
+  final String formattedTime;
 
-  const DateSelectedEvent(this.selectedTime);
+  TimeSelectedEvent(this.selectedTime, this.formattedTime);
 }
+
