@@ -1,4 +1,5 @@
 import 'package:bloc_to_do/presentation/animations/fade_animation.dart';
+import 'package:bloc_to_do/presentation/widgets/bottom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_to_do/constants/preferences.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +10,11 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: CustomButton().buildBottombar(
+        context,
+        'Add new Task',
+        () => Navigator.of(context).pushNamed('/add_task'),
+      ),
       body: Stack(
         children: [
           Column(
@@ -70,8 +76,8 @@ class HomeScreen extends StatelessWidget {
                           itemCount: 10,
                           itemBuilder: (context, index) {
                             return Container(
-                                margin:
-                                    const EdgeInsets.only(top: 5, left: 20, bottom: 5),
+                                margin: const EdgeInsets.only(
+                                    top: 5, left: 20, bottom: 5),
                                 width: 100,
                                 height: 40,
                                 child: const Text(
@@ -97,13 +103,13 @@ class HomeScreen extends StatelessWidget {
                         //!color: Colors.red, |for test|
                         color: ToDoColors.mainColor,
                         borderRadius: BorderRadius.circular(30)),
-                        child: Center(
-                          child: ListView.builder(
+                    child: Center(
+                      child: ListView.builder(
                           itemCount: 10,
                           itemBuilder: (context, index) {
                             return Container(
-                                margin:
-                                    const EdgeInsets.only(top: 5, left: 20, bottom: 5),
+                                margin: const EdgeInsets.only(
+                                    top: 5, left: 20, bottom: 5),
                                 width: 100,
                                 height: 40,
                                 child: const Text(
@@ -111,24 +117,6 @@ class HomeScreen extends StatelessWidget {
                                   style: ToDoTextStyles.black16,
                                 ));
                           }),
-                        ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: ElevatedButton(
-                      onPressed: () =>
-                          Navigator.of(context).pushNamed('/add_task'),
-                      style: ButtonStyle(
-                        minimumSize: WidgetStateProperty.all(Size(
-                            MediaQuery.of(context).size.width * 1,
-                            MediaQuery.of(context).size.height * 0.06)),
-                        backgroundColor:
-                            WidgetStateProperty.all(ToDoColors.seedColor),
-                      ),
-                      child: const Text(
-                        'Add new task',
-                        style: ToDoTextStyles.white16,
-                      ),
                     ),
                   ),
                 ],

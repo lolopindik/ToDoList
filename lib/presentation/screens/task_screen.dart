@@ -1,6 +1,7 @@
 import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
 import 'package:bloc_to_do/presentation/animations/scale_animation.dart';
+import 'package:bloc_to_do/presentation/widgets/bottom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_to_do/constants/preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,8 @@ class TaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      bottomNavigationBar:
+          CustomButton().buildBottombar(context, 'Save', () {}),
       body: Stack(
         children: [
           Column(
@@ -27,12 +30,12 @@ class TaskScreen extends StatelessWidget {
                   ),
                   child: Container(
                     margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.065),
+                        top: MediaQuery.of(context).size.height * 0.055),
                     width: MediaQuery.of(context).size.width * 1,
                     child: Center(
                         child: ScaleAnimation().createAnimation(
                       context,
-                      Text(
+                      const Text(
                         'Add new task',
                         style: ToDoTextStyles.white24,
                       ),
@@ -52,7 +55,7 @@ class TaskScreen extends StatelessWidget {
           Positioned.fill(
             child: Padding(
               padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.075,
+                top: MediaQuery.of(context).size.height * 0.065,
                 left: 15,
                 right: 15,
               ),
@@ -90,6 +93,7 @@ class TaskScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 24),
                     child: Row(
                       children: [
+                        //todo добавить  возможность выбрать категорию заметки
                         const Text(
                           'Category',
                           style: ToDoTextStyles.black16,
@@ -233,6 +237,24 @@ class TaskScreen extends StatelessWidget {
                         ],
                       ),
                     ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 24),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Notes',
+                        style: ToDoTextStyles.black16,
+                      ),
+                    ),
+                  ),
+                  TextFormField(
+                    maxLines:
+                        (MediaQuery.of(context).size.height * 0.007).toInt(),
+                    decoration: const InputDecoration(
+                      hintText: 'Notes',
+                      border: OutlineInputBorder(),
+                    ),
                   )
                 ],
               ),
