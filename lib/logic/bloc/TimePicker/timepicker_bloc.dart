@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,6 +13,7 @@ class TimepickerBloc extends Bloc<TimepickerEvent, TimepickerState> {
     on<TimeSelectedEvent>((event, emit) {
       timeController.text = event.formattedTime;
       emit(TimepickerSelected(event.selectedTime));
+      print('timeController: ${timeController.text}');
     });
   }
 

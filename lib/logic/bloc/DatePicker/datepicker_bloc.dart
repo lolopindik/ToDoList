@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +17,7 @@ class DatepickerBloc extends Bloc<DatepickerEvent, DatepickerState> {
   void _onDateSelected(DateSelectedEvent event, Emitter<DatepickerState> emit) {
     dateController.text = "${event.selectedDate.toLocal()}".split(' ')[0];
     emit(DatepickerSelected(event.selectedDate));
+    print('dateController ${dateController.text}');
   }
 
   @override
