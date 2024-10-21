@@ -2,12 +2,18 @@
 
 part of 'text_field_handler_bloc.dart';
 
-abstract class TextFieldHandlerEvent{
+abstract class TextFieldHandlerEvent {
   const TextFieldHandlerEvent();
 }
 
-class TitleEvent extends TextFieldHandlerEvent{
+class TitleEvent extends TextFieldHandlerEvent {
   String title;
 
   TitleEvent(this.title);
+}
+
+class NotesEvent extends TextFieldHandlerEvent {
+  String notes;
+
+  NotesEvent(this.notes);
 }

@@ -2,13 +2,20 @@
 
 part of 'text_field_handler_bloc.dart';
 
-abstract class TextFieldHandlerState{
+abstract class TextFieldHandlerState {
   const TextFieldHandlerState();
 }
 
 class TextFieldHandlerInitial extends TextFieldHandlerState {}
 
-class TitleState extends TextFieldHandlerState{
+class TitleState extends TextFieldHandlerState {
   String title;
+
   TitleState(this.title);
+}
+
+class NotesState extends TextFieldHandlerState {
+  String notes;
+
+  NotesState(this.notes);
 }

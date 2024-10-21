@@ -97,22 +97,25 @@ class TaskScreen extends StatelessWidget {
                             child: Text('Task Title',
                                 style: ToDoTextStyles.black16),
                           ),
-                          BlocBuilder<TextFieldHandlerBloc, TextFieldHandlerState>(
+                          BlocBuilder<TextFieldHandlerBloc,
+                              TextFieldHandlerState>(
                             builder: (context, state) {
-                                return TextField(
-                                  onChanged: (title){
-                                   context.read<TextFieldHandlerBloc>().add(TitleEvent(title));
-                                  },
-                                  maxLength: 30,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Task Title',
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: ToDoColors.mainColor,
-                                      ),
+                              return TextField(
+                                onChanged: (title) {
+                                  context
+                                      .read<TextFieldHandlerBloc>()
+                                      .add(TitleEvent(title));
+                                },
+                                maxLength: 30,
+                                decoration: const InputDecoration(
+                                  hintText: 'Task Title',
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: ToDoColors.mainColor,
                                     ),
                                   ),
-                                );
+                                ),
+                              );
                             },
                           ),
                           Padding(
@@ -166,50 +169,45 @@ class TaskScreen extends StatelessWidget {
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.45,
-                                    child: BlocProvider(
-                                      create: (_) => DatepickerBloc(),
-                                      child: BlocBuilder<DatepickerBloc,
-                                          DatepickerState>(
-                                        builder: (context, state) {
-                                          final dateBloc =
-                                              BlocProvider.of<DatepickerBloc>(
-                                                  context);
-                                          return GestureDetector(
-                                            onTap: () async {
-                                              DateTime? pickedDate =
-                                                  await showDatePicker(
-                                                context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime(2000),
-                                                lastDate: DateTime(2101),
-                                              );
-                                              if (pickedDate != null) {
-                                                dateBloc.add(DateSelectedEvent(
-                                                  pickedDate,
-                                                ));
-                                              }
-                                            },
-                                            child: AbsorbPointer(
-                                              child: TextField(
-                                                controller:
-                                                    dateBloc.dateController,
-                                                decoration:
-                                                    const InputDecoration(
-                                                  suffixIcon: Icon(Icons
-                                                      .calendar_today_outlined),
-                                                  hintText: 'Date',
-                                                  border: OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                      color:
-                                                          ToDoColors.mainColor,
-                                                    ),
+                                    child: BlocBuilder<DatepickerBloc,
+                                        DatepickerState>(
+                                      builder: (context, state) {
+                                        final dateBloc =
+                                            BlocProvider.of<DatepickerBloc>(
+                                                context);
+                                        return GestureDetector(
+                                          onTap: () async {
+                                            DateTime? pickedDate =
+                                                await showDatePicker(
+                                              context: context,
+                                              initialDate: DateTime.now(),
+                                              firstDate: DateTime(2000),
+                                              lastDate: DateTime(2101),
+                                            );
+                                            if (pickedDate != null) {
+                                              dateBloc.add(DateSelectedEvent(
+                                                pickedDate,
+                                              ));
+                                            }
+                                          },
+                                          child: AbsorbPointer(
+                                            child: TextField(
+                                              controller:
+                                                  dateBloc.dateController,
+                                              decoration: const InputDecoration(
+                                                suffixIcon: Icon(Icons
+                                                    .calendar_today_outlined),
+                                                hintText: 'Date',
+                                                border: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: ToDoColors.mainColor,
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          );
-                                        },
-                                      ),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ],
@@ -226,50 +224,45 @@ class TaskScreen extends StatelessWidget {
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.45,
-                                    child: BlocProvider(
-                                      create: (_) => TimepickerBloc(),
-                                      child: BlocBuilder<TimepickerBloc,
-                                          TimepickerState>(
-                                        builder: (context, state) {
-                                          final timeBloc =
-                                              BlocProvider.of<TimepickerBloc>(
-                                                  context);
-                                          return GestureDetector(
-                                            onTap: () async {
-                                              TimeOfDay? pickedTime =
-                                                  await showTimePicker(
-                                                context: context,
-                                                initialTime: TimeOfDay.now(),
-                                              );
-                                              if (pickedTime != null) {
-                                                final formattedTime =
-                                                    // ignore: use_build_context_synchronously
-                                                    pickedTime.format(context);
-                                                timeBloc.add(TimeSelectedEvent(
-                                                    pickedTime, formattedTime));
-                                              }
-                                            },
-                                            child: AbsorbPointer(
-                                              child: TextField(
-                                                controller:
-                                                    timeBloc.timeController,
-                                                decoration:
-                                                    const InputDecoration(
-                                                  suffixIcon:
-                                                      Icon(Icons.timer_sharp),
-                                                  hintText: 'Time',
-                                                  border: OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                      color:
-                                                          ToDoColors.mainColor,
-                                                    ),
+                                    child: BlocBuilder<TimepickerBloc,
+                                        TimepickerState>(
+                                      builder: (context, state) {
+                                        final timeBloc =
+                                            BlocProvider.of<TimepickerBloc>(
+                                                context);
+                                        return GestureDetector(
+                                          onTap: () async {
+                                            TimeOfDay? pickedTime =
+                                                await showTimePicker(
+                                              context: context,
+                                              initialTime: TimeOfDay.now(),
+                                            );
+                                            if (pickedTime != null) {
+                                              final formattedTime =
+                                                  // ignore: use_build_context_synchronously
+                                                  pickedTime.format(context);
+                                              timeBloc.add(TimeSelectedEvent(
+                                                  pickedTime, formattedTime));
+                                            }
+                                          },
+                                          child: AbsorbPointer(
+                                            child: TextField(
+                                              controller:
+                                                  timeBloc.timeController,
+                                              decoration: const InputDecoration(
+                                                suffixIcon:
+                                                    Icon(Icons.timer_sharp),
+                                                hintText: 'Time',
+                                                border: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: ToDoColors.mainColor,
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          );
-                                        },
-                                      ),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ],
@@ -286,14 +279,24 @@ class TaskScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          TextFormField(
-                            maxLines:
-                                (MediaQuery.of(context).size.height * 0.008)
-                                    .toInt(),
-                            decoration: const InputDecoration(
-                              hintText: 'Notes',
-                              border: OutlineInputBorder(),
-                            ),
+                          BlocBuilder<TextFieldHandlerBloc,
+                              TextFieldHandlerState>(
+                            builder: (context, state) {
+                              return TextFormField(
+                                onChanged: (notes) {
+                                  context
+                                      .read<TextFieldHandlerBloc>()
+                                      .add(NotesEvent(notes));
+                                },
+                                maxLines:
+                                    (MediaQuery.of(context).size.height * 0.008)
+                                        .toInt(),
+                                decoration: const InputDecoration(
+                                  hintText: 'Notes',
+                                  border: OutlineInputBorder(),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
