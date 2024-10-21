@@ -13,6 +13,7 @@ class TaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ToDoColors.mainColor,
       bottomNavigationBar:
           CustomButton().buildBottombar(context, 'Save', () {}),
       body: SafeArea(
