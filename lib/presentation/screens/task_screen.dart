@@ -1,4 +1,5 @@
 import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
+import 'package:bloc_to_do/logic/bloc/TextFieldHandler/text_field_handler_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
 import 'package:bloc_to_do/presentation/animations/scale_animation.dart';
 import 'package:bloc_to_do/presentation/widgets/bottom_button_widget.dart';
@@ -67,7 +68,7 @@ class TaskScreen extends StatelessWidget {
                   Positioned.fill(
                     child: Padding(
                       padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.055,
+                        top: MediaQuery.of(context).size.height * 0.06,
                         left: 15,
                         right: 15,
                       ),
@@ -79,7 +80,7 @@ class TaskScreen extends StatelessWidget {
                             child: CircleAvatar(
                               backgroundColor: ToDoColors.mainColor,
                               radius:
-                                  MediaQuery.of(context).size.height * 0.038,
+                                  MediaQuery.of(context).size.height * 0.035,
                               child: IconButton(
                                 onPressed: () => Navigator.pop(context),
                                 icon: Icon(Icons.close_rounded,
@@ -96,16 +97,23 @@ class TaskScreen extends StatelessWidget {
                             child: Text('Task Title',
                                 style: ToDoTextStyles.black16),
                           ),
-                          const TextField(
-                            maxLength: 30,
-                            decoration: InputDecoration(
-                              hintText: 'Task Title',
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ToDoColors.mainColor,
-                                ),
-                              ),
-                            ),
+                          BlocBuilder<TextFieldHandlerBloc, TextFieldHandlerState>(
+                            builder: (context, state) {
+                                return TextField(
+                                  onChanged: (title){
+                                   context.read<TextFieldHandlerBloc>().add(TitleEvent(title));
+                                  },
+                                  maxLength: 30,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Task Title',
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ToDoColors.mainColor,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                            },
                           ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 24),
