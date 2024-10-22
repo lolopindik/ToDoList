@@ -121,8 +121,15 @@ class TaskScreen extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 24),
-                            child: BlocBuilder<CategorypickerCubit, CategorypickerState>(
+                            child: BlocBuilder<CategorypickerCubit,
+                                CategorypickerState>(
                               builder: (context, state) {
+                                if (state is CategorypickerSelected) {
+                                  int selectedCategoryIndex =
+                                      state.categoryIndex;
+                                  debugPrint(
+                                      'Selected category index: $selectedCategoryIndex');
+                                }
                                 return Row(
                                   children: [
                                     const Text(
@@ -132,37 +139,46 @@ class TaskScreen extends StatelessWidget {
                                     const SizedBox(width: 24),
                                     IconButton(
                                       onPressed: () {
-                                        context.read<CategorypickerCubit>().categoryPickEvent();
+                                        context
+                                            .read<CategorypickerCubit>()
+                                            .categoryPickEvent();
                                       },
                                       icon: SvgPicture.asset(
                                         'lib/assets/icons/Category=Event.svg',
-                                        height: MediaQuery.of(context).size.height *
-                                            0.07,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.07,
                                       ),
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        context.read<CategorypickerCubit>().categoryPickGoal();
+                                        context
+                                            .read<CategorypickerCubit>()
+                                            .categoryPickGoal();
                                       },
                                       icon: SvgPicture.asset(
                                         'lib/assets/icons/Category=Goal.svg',
-                                        height: MediaQuery.of(context).size.height *
-                                            0.07,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.07,
                                       ),
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        context.read<CategorypickerCubit>().categoryPickTask();
+                                        context
+                                            .read<CategorypickerCubit>()
+                                            .categoryPickTask();
                                       },
                                       icon: SvgPicture.asset(
                                         'lib/assets/icons/Category=Task.svg',
-                                        height: MediaQuery.of(context).size.height *
-                                            0.07,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.07,
                                       ),
                                     ),
                                   ],
                                 );
-                              }
+                              },
                             ),
                           ),
                           Row(
@@ -197,8 +213,7 @@ class TaskScreen extends StatelessWidget {
                                             );
                                             if (pickedDate != null) {
                                               dateBloc.add(DateSelectedEvent(
-                                                pickedDate,
-                                              ));
+                                                  pickedDate));
                                             }
                                           },
                                           child: AbsorbPointer(
