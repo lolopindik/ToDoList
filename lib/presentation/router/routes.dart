@@ -1,3 +1,4 @@
+import 'package:bloc_to_do/logic/bloc/CategoryPicker/categorypicker_cubit.dart';
 import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TextFieldHandler/text_field_handler_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
@@ -16,7 +17,8 @@ class AppRouter {
         return TransitionAnimation.createRoute(MultiBlocProvider(providers: [
           BlocProvider(create: (context) => DatepickerBloc()),
           BlocProvider(create: (context) => TimepickerBloc()),
-          BlocProvider(create: (context) => TextFieldHandlerBloc())
+          BlocProvider(create: (context) => TextFieldHandlerBloc()),
+          BlocProvider(create: (context) => CategorypickerCubit()),
         ], child: const TaskScreen()));
       default:
         return MaterialPageRoute(builder: (context) => const HomeScreen());

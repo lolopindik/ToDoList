@@ -1,3 +1,4 @@
+import 'package:bloc_to_do/logic/bloc/CategoryPicker/categorypicker_cubit.dart';
 import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TextFieldHandler/text_field_handler_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
@@ -120,38 +121,48 @@ class TaskScreen extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 24),
-                            child: Row(
-                              children: [
-                                const Text(
-                                  'Category',
-                                  style: ToDoTextStyles.black16,
-                                ),
-                                const SizedBox(width: 24),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: SvgPicture.asset(
-                                    'lib/assets/icons/Category=Event.svg',
-                                    height: MediaQuery.of(context).size.height *
-                                        0.07,
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: SvgPicture.asset(
-                                    'lib/assets/icons/Category=Goal.svg',
-                                    height: MediaQuery.of(context).size.height *
-                                        0.07,
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: SvgPicture.asset(
-                                    'lib/assets/icons/Category=Task.svg',
-                                    height: MediaQuery.of(context).size.height *
-                                        0.07,
-                                  ),
-                                ),
-                              ],
+                            child: BlocBuilder<CategorypickerCubit, CategorypickerState>(
+                              builder: (context, state) {
+                                return Row(
+                                  children: [
+                                    const Text(
+                                      'Category',
+                                      style: ToDoTextStyles.black16,
+                                    ),
+                                    const SizedBox(width: 24),
+                                    IconButton(
+                                      onPressed: () {
+                                        context.read<CategorypickerCubit>().categoryPickEvent();
+                                      },
+                                      icon: SvgPicture.asset(
+                                        'lib/assets/icons/Category=Event.svg',
+                                        height: MediaQuery.of(context).size.height *
+                                            0.07,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        context.read<CategorypickerCubit>().categoryPickGoal();
+                                      },
+                                      icon: SvgPicture.asset(
+                                        'lib/assets/icons/Category=Goal.svg',
+                                        height: MediaQuery.of(context).size.height *
+                                            0.07,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        context.read<CategorypickerCubit>().categoryPickTask();
+                                      },
+                                      icon: SvgPicture.asset(
+                                        'lib/assets/icons/Category=Task.svg',
+                                        height: MediaQuery.of(context).size.height *
+                                            0.07,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }
                             ),
                           ),
                           Row(
