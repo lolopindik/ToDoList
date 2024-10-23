@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:bloc_to_do/constants/preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:bloc_to_do/logic/services/snackbar_service.dart';
 
 class TaskScreen extends StatelessWidget {
   const TaskScreen({super.key});
@@ -17,7 +18,8 @@ class TaskScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: ToDoColors.mainColor,
       bottomNavigationBar:
-          CustomButton().buildBottombar(context, 'Save', () {}),
+      //todo: Add a construct to process the data to give a confirmation or error
+          CustomButton().buildBottombar(context, 'Save', () { SnackbarService().showFailureSnackbar(context); }),
       body: SafeArea(
         top: false,
         child: SingleChildScrollView(
