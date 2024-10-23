@@ -124,6 +124,10 @@ class TaskScreen extends StatelessWidget {
                             child: BlocBuilder<CategorypickerCubit,
                                 CategorypickerState>(
                               builder: (context, state) {
+                                double categorySize =
+                                    MediaQuery.of(context).size.height * 0.07;
+                                double selectedCategorySize =
+                                    MediaQuery.of(context).size.height * 0.085;
                                 if (state is CategorypickerSelected) {
                                   int selectedCategoryIndex =
                                       state.categoryIndex;
@@ -144,11 +148,12 @@ class TaskScreen extends StatelessWidget {
                                             .categoryPickEvent();
                                       },
                                       icon: SvgPicture.asset(
-                                        'lib/assets/icons/Category=Event.svg',
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.07,
-                                      ),
+                                          'lib/assets/icons/Category=Event.svg',
+                                          height:
+                                              (state is CategorypickerSelected &&
+                                                      state.categoryIndex == 1)
+                                                  ? selectedCategorySize
+                                                  : categorySize),
                                     ),
                                     IconButton(
                                       onPressed: () {
@@ -157,11 +162,12 @@ class TaskScreen extends StatelessWidget {
                                             .categoryPickGoal();
                                       },
                                       icon: SvgPicture.asset(
-                                        'lib/assets/icons/Category=Goal.svg',
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.07,
-                                      ),
+                                          'lib/assets/icons/Category=Goal.svg',
+                                          height:
+                                              (state is CategorypickerSelected &&
+                                                      state.categoryIndex == 2)
+                                                  ? selectedCategorySize
+                                                  : categorySize),
                                     ),
                                     IconButton(
                                       onPressed: () {
@@ -170,11 +176,12 @@ class TaskScreen extends StatelessWidget {
                                             .categoryPickTask();
                                       },
                                       icon: SvgPicture.asset(
-                                        'lib/assets/icons/Category=Task.svg',
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.07,
-                                      ),
+                                          'lib/assets/icons/Category=Task.svg',
+                                          height:
+                                              (state is CategorypickerSelected &&
+                                                      state.categoryIndex == 3)
+                                                  ? selectedCategorySize
+                                                  : categorySize),
                                     ),
                                   ],
                                 );
