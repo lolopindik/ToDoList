@@ -20,9 +20,7 @@ class DataCollectionBloc
   DataCollectionBloc(this.categorypickerCubit, this.datepickerBloc,
       this.textFieldHandlerBloc, this.timepickerBloc)
       : super(DateCollectionInitial()) {
-    on<DataCollectionEvent>((event, emit) {
-      on<SaveDataEvent>(_onSaveData);
-    });
+    on<SaveDataEvent>(_onSaveData);
   }
   Future<void> _onSaveData(
       SaveDataEvent event, Emitter<DataCollectionState> emit) async {
@@ -54,6 +52,8 @@ class DataCollectionBloc
 
       //* преобразуем в json
       final String jsonData = json.encode(collectedData);
+
+      debugPrint('Task json: ${jsonData.toString()}');
 
       //* сохраняем локально в SharedPreferences
       final prefs = await SharedPreferences.getInstance();

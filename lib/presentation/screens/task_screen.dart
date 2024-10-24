@@ -1,4 +1,5 @@
 import 'package:bloc_to_do/logic/bloc/CategoryPicker/categorypicker_cubit.dart';
+import 'package:bloc_to_do/logic/bloc/DataCollection/data_collection_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TextFieldHandler/text_field_handler_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
@@ -17,9 +18,24 @@ class TaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ToDoColors.mainColor,
-      bottomNavigationBar:
-      //todo: Add a construct to process the data to give a confirmation or error
-          CustomButton().buildBottombar(context, 'Save', () { SnackbarService().showFailureSnackbar(context); }),
+      bottomNavigationBar: BlocBuilder<DataCollectionBloc, DataCollectionState>(
+        builder: (context, state) {
+          return CustomButton().buildBottombar(
+            context,
+            'Save',
+            () {
+              context.read<DataCollectionBloc>().add(
+                    SaveDataEvent(context),
+                  );
+              if (state is DateCollectionSuccess) {
+                SnackbarService().showSuccesSnackbar(context);
+              } else if (state is DataCollectionFailure) {
+                SnackbarService().showFailureSnackbar(context);
+              }
+            },
+          );
+        },
+      ),
       body: SafeArea(
         top: false,
         child: SingleChildScrollView(
