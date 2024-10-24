@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:bloc_to_do/logic/bloc/CategoryPicker/categorypicker_cubit.dart';
 import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TextFieldHandler/text_field_handler_bloc.dart';
@@ -17,15 +16,17 @@ class DataCollectionBloc
   final DatepickerBloc datepickerBloc;
   final TextFieldHandlerBloc textFieldHandlerBloc;
   final TimepickerBloc timepickerBloc;
+
   DataCollectionBloc(this.categorypickerCubit, this.datepickerBloc,
       this.textFieldHandlerBloc, this.timepickerBloc)
       : super(DateCollectionInitial()) {
     on<SaveDataEvent>(_onSaveData);
   }
+
   Future<void> _onSaveData(
       SaveDataEvent event, Emitter<DataCollectionState> emit) async {
     try {
-      //* собираем данные с блоков
+      //* Собираем данные с блоков
       final category = (categorypickerCubit.state is CategorypickerSelected)
           ? (categorypickerCubit.state as CategorypickerSelected).categoryIndex
           : null;
@@ -41,36 +42,53 @@ class DataCollectionBloc
           ? (timepickerBloc.state as TimepickerSelected).selectedTime
           : null;
 
-      //* создаем массив с собранными данными
+      //* Проверяем заполненность полей
+      if (category == null ||
+          selectedDate == null ||
+          title.isEmpty ||
+          notes.isEmpty ||
+          selectedTime == null) {
+        emit(DataCollectionFailure(errorMessage: 'Some fields are empty'));
+        return;
+      }
+
+      //* Создаем массив с собранными данными
       final Map<String, dynamic> collectedData = {
         'title': title,
         'category': category,
         'notes': notes,
-        'selectedDate': selectedDate?.toIso8601String(),
-        'selectedTime': selectedTime?.format(event.context),
+        'selectedDate': selectedDate.toIso8601String(),
+        'selectedTime': selectedTime.format(event.context),
       };
 
-      if (category == null ||
-          selectedDate == null ||
-          title == '' ||
-          notes == '' ||
-          selectedTime == null) {
-        emit(DataCollectionFailure(errorMessage: 'Fields are empt'));
-        return;
-      }
-
-      //* преобразуем в json
+      //* Преобразуем в json
       final String jsonData = json.encode(collectedData);
 
       debugPrint('Task json: ${jsonData.toString()}');
 
-      //* сохраняем локально в SharedPreferences
+      //* Сохраняем локально в SharedPreferences
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('collectedData', jsonData);
+      final existingData = prefs.getStringList('collectedDataList') ?? [];
+      existingData.add(jsonData);
+      await prefs.setStringList('collectedDataList', existingData);
 
       emit(DateCollectionSuccess());
     } catch (e) {
       emit(DataCollectionFailure(errorMessage: e.toString()));
     }
+  }
+
+  //* Получение jsone
+  //! Данная функция возможно будет сипользована в другом bloc
+  Future<List<Map<String, dynamic>>> getCollectedData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String>? jsonDataList = prefs.getStringList('collectedDataList');
+
+    if (jsonDataList != null) {
+      return jsonDataList.map((jsonData) {
+        return json.decode(jsonData) as Map<String, dynamic>;
+      }).toList();
+    }
+    return [];
   }
 }
