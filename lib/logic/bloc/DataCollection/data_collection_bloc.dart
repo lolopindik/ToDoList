@@ -50,6 +50,15 @@ class DataCollectionBloc
         'selectedTime': selectedTime?.format(event.context),
       };
 
+      if (category == null ||
+          selectedDate == null ||
+          title == '' ||
+          notes == '' ||
+          selectedTime == null) {
+        emit(DataCollectionFailure(errorMessage: 'Fields are empt'));
+        return;
+      }
+
       //* преобразуем в json
       final String jsonData = json.encode(collectedData);
 

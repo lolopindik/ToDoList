@@ -18,20 +18,27 @@ class TaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ToDoColors.mainColor,
-      bottomNavigationBar: BlocBuilder<DataCollectionBloc, DataCollectionState>(
+      bottomNavigationBar:
+          BlocConsumer<DataCollectionBloc, DataCollectionState>(
+        listener: (context, state) {
+          if (state is DateCollectionSuccess) {
+            SnackbarService().showSuccesSnackbar(context);
+          } else if (state is DataCollectionFailure) {
+            SnackbarService().showFailureSnackbar(context);
+          }
+        },
         builder: (context, state) {
-          return CustomButton().buildBottombar(
-            context,
-            'Save',
-            () {
-              context.read<DataCollectionBloc>().add(
-                    SaveDataEvent(context),
-                  );
-              if (state is DateCollectionSuccess) {
-                SnackbarService().showSuccesSnackbar(context);
-              } else if (state is DataCollectionFailure) {
-                SnackbarService().showFailureSnackbar(context);
-              }
+          return BlocBuilder<DataCollectionBloc, DataCollectionState>(
+            builder: (context, state) {
+              return CustomButton().buildBottombar(
+                context,
+                'Save',
+                () {
+                  context.read<DataCollectionBloc>().add(
+                        SaveDataEvent(context),
+                      );
+                },
+              );
             },
           );
         },
