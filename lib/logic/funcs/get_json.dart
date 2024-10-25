@@ -11,7 +11,8 @@ class GetJson {
       return jsonDataList.map((jsonData) {
         return json.decode(jsonData) as Map<String, dynamic>;
       }).toList();
+    } else {
+      return [];
     }
-    return [];
   }
 }
