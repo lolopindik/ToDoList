@@ -23,6 +23,7 @@ class TaskScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is DateCollectionSuccess) {
             SnackbarService().showSuccesSnackbar(context);
+            Navigator.pop(context);
           } else if (state is DataCollectionFailure) {
             SnackbarService().showFailureSnackbar(context);
           }
