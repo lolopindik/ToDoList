@@ -77,18 +77,4 @@ class DataCollectionBloc
       emit(DataCollectionFailure(errorMessage: e.toString()));
     }
   }
-
-  //* Получение jsone
-  //! Данная функция возможно будет сипользована в другом bloc
-  Future<List<Map<String, dynamic>>> getCollectedData() async {
-    final prefs = await SharedPreferences.getInstance();
-    final List<String>? jsonDataList = prefs.getStringList('collectedDataList');
-
-    if (jsonDataList != null) {
-      return jsonDataList.map((jsonData) {
-        return json.decode(jsonData) as Map<String, dynamic>;
-      }).toList();
-    }
-    return [];
-  }
 }
