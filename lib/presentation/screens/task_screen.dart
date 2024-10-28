@@ -22,10 +22,12 @@ class TaskScreen extends StatelessWidget {
           BlocConsumer<DataCollectionBloc, DataCollectionState>(
         listener: (context, state) {
           if (state is DateCollectionSuccess) {
-            SnackbarService().showSuccesSnackbar(context);
+            SnackbarService()
+                .showSnackbar(context, 'Yeap!', 'Everything went well', true);
             Navigator.pop(context);
           } else if (state is DataCollectionFailure) {
-            SnackbarService().showFailureSnackbar(context);
+            SnackbarService().showSnackbar(context, 'Oups!',
+                "You haven't filled in all the details", false);
           }
         },
         builder: (context, state) {
