@@ -39,7 +39,11 @@ class AppRouter {
           child: const TaskScreen(),
         ));
       default:
-        return MaterialPageRoute(builder: (context) => const HomeScreen());
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => ComapreDataBloc(GetJson())..fetchData(),
+                  child: const HomeScreen(),
+                ));
     }
   }
 }
