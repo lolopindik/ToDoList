@@ -1,11 +1,11 @@
 import 'package:bloc_to_do/logic/bloc/ComapeData/comapre_data_bloc.dart';
 import 'package:bloc_to_do/presentation/animations/fade_animation.dart';
 import 'package:bloc_to_do/presentation/widgets/bottom_button_widget.dart';
+import 'package:bloc_to_do/presentation/widgets/icons_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_to_do/constants/preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -104,32 +104,13 @@ class HomeScreen extends StatelessWidget {
                                                       .secondaryColor))),
                                       child: Row(
                                         children: [
-                                          (task['category'] == 1)
-                                              //todo сделать отдельный класс для иконок из assets
-                                              ? SvgPicture.asset(
-                                                  'lib/assets/icons/Category=Event.svg',
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.06,
-                                                )
-                                              : (task['category'] == 2)
-                                                  ? SvgPicture.asset(
-                                                      'lib/assets/icons/Category=Goal.svg',
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.06,
-                                                    )
-                                                  : SvgPicture.asset(
-                                                      'lib/assets/icons/Category=Task.svg',
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.06,
-                                                    ),
+                                          CustomIcons().buildIcon(
+                                              context,
+                                              task['category'],
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.06),
                                           SizedBox(
                                             width: MediaQuery.of(context)
                                                     .size
