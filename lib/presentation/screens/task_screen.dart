@@ -24,7 +24,7 @@ class TaskScreen extends StatelessWidget {
           if (state is DateCollectionSuccess) {
             SnackbarService()
                 .showSnackbar(context, 'Yeap!', 'Everything went well', true);
-            Navigator.pop(context);
+            Navigator.pushNamed(context, '/home');
           } else if (state is DataCollectionFailure) {
             SnackbarService().showSnackbar(context, 'Oups!',
                 "You haven't filled in all the details", false);
