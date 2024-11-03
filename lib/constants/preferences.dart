@@ -11,6 +11,10 @@ class ToDoTextStyles {
       TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w600);
   static const TextStyle white24 =
       TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600);
+  static const TextStyle grey14 = TextStyle(
+      color: Color.fromARGB(255, 99, 98, 98),
+      fontSize: 14,
+      fontWeight: FontWeight.w500);
   static const TextStyle white16 =
       TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600);
   static const TextStyle black30 =

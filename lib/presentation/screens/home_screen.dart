@@ -117,9 +117,21 @@ class HomeScreen extends StatelessWidget {
                                                     .width *
                                                 0.03,
                                           ),
-                                          Text(
-                                            task['title'],
-                                            style: ToDoTextStyles.black16,
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                task['title'],
+                                                style: ToDoTextStyles.black16,
+                                              ),
+                                              Text(
+                                                task['selectedTime'],
+                                                style: ToDoTextStyles.grey14,
+                                              ),
+                                            ],
                                           )
                                         ],
                                       ));
