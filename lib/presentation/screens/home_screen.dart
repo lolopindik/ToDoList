@@ -70,80 +70,75 @@ class HomeScreen extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.02,
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.30,
+                    height: MediaQuery.of(context).size.height * 0.3,
                     decoration: BoxDecoration(
-                        //!color: Colors.red, |for test|
                         color: ToDoColors.mainColor,
                         borderRadius: BorderRadius.circular(30)),
-                    child: Center(
-                      //* проверил вывод shared preferences, все работает, осталось лишь все это дело допилить
-                      //todo: 1) сверстать с макета listwiew
-                      //todo: 2) реализовать обновление state после закрытия экрана с созданием заметки
-                      child: BlocBuilder<ComapreDataBloc, ComapreDataState>(
-                        builder: (context, state) {
-                          if (state is ComapreDataLoading) {
-                            return const Center(
-                                child: CupertinoActivityIndicator());
-                          } else if (state is ComapreDataLoaded) {
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 5, left: 15, right: 15),
-                              child: ListView.builder(
-                                itemCount: state.taskList.length,
-                                itemBuilder: (context, index) {
-                                  final task = state.taskList[index];
-                                  return Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.075,
-                                      decoration: const BoxDecoration(
-                                          border: Border(
-                                              top: BorderSide(
-                                                  width: 1,
-                                                  color: ToDoColors
-                                                      .secondaryColor))),
-                                      child: Row(
-                                        children: [
-                                          CustomIcons().buildIcon(
-                                              context,
-                                              task['category'],
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.06),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
+                    child: BlocBuilder<ComapreDataBloc, ComapreDataState>(
+                      builder: (context, state) {
+                        if (state is ComapreDataLoading) {
+                          return const Center(
+                              child: CupertinoActivityIndicator(radius: 20,));
+                        } else if (state is ComapreDataLoaded) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                top: 5, left: 15, right: 15),
+                            child: ListView.builder(
+                              reverse: true,
+                              itemCount: state.taskList.length,
+                              itemBuilder: (context, index ) {
+                                final task = state.taskList[index];
+                                return Container(
+                                    height:
+                                        MediaQuery.of(context).size.height *
+                                            0.075,
+                                    decoration: const BoxDecoration(
+                                        border: Border(
+                                            top: BorderSide(
+                                                width: 1,
+                                                color: ToDoColors
+                                                    .secondaryColor))),
+                                    child: Row(
+                                      children: [
+                                        CustomIcons().buildIcon(
+                                            context,
+                                            task['category'],
+                                            MediaQuery.of(context)
                                                     .size
-                                                    .width *
-                                                0.03,
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                task['title'],
-                                                style: ToDoTextStyles.black16,
-                                              ),
-                                              Text(
-                                                task['selectedTime'],
-                                                style: ToDoTextStyles.grey14,
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ));
-                                },
-                              ),
-                            );
-                          } else if (state is ComapreDataFailure) {
-                            return Center(child: Text('Error: ${state.error}'));
-                          }
-                          return Container();
-                        },
-                      ),
+                                                    .height *
+                                                0.06),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.03,
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              task['title'],
+                                              style: ToDoTextStyles.black16,
+                                            ),
+                                            Text(
+                                              task['selectedTime'],
+                                              style: ToDoTextStyles.grey14,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ));
+                              },
+                            ),
+                          );
+                        } else if (state is ComapreDataFailure) {
+                          return Center(child: Text('Error: ${state.error}'));
+                        }
+                        return Container();
+                      },
                     ),
                   ),
                   const Align(
@@ -159,7 +154,6 @@ class HomeScreen extends StatelessWidget {
                   Container(
                     height: MediaQuery.of(context).size.height * 0.30,
                     decoration: BoxDecoration(
-                        //!color: Colors.red, |for test|
                         color: ToDoColors.mainColor,
                         borderRadius: BorderRadius.circular(30)),
                     child: Center(
