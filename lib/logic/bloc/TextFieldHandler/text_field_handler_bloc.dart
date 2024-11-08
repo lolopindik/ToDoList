@@ -19,13 +19,13 @@ class TextFieldHandlerBloc
   void _onTitleSelected(TitleEvent event, Emitter<TextFieldHandlerState> emit) {
     titleController.text = event.title;
     emit(TitleState(event.title));
-    print('Title: ${titleController.text}');
+    print('Title: ${titleController.text.trim()}');
   }
 
   void _onNotesSelected(NotesEvent event, Emitter<TextFieldHandlerState> emit) {
     notesController.text = event.notes;
     emit(NotesState(event.notes));
-    print('Notes:  ${notesController.text}');
+    print('Notes:  ${notesController.text.trim()}');
   }
 
   @override
