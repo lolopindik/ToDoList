@@ -1,3 +1,4 @@
+import 'package:bloc_to_do/logic/bloc/CheckBox/check_box_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/ComapeData/comapre_data_bloc.dart';
 import 'package:bloc_to_do/presentation/animations/fade_animation.dart';
 import 'package:bloc_to_do/presentation/widgets/bottom_button_widget.dart';
@@ -78,7 +79,9 @@ class HomeScreen extends StatelessWidget {
                       builder: (context, state) {
                         if (state is ComapreDataLoading) {
                           return const Center(
-                              child: CupertinoActivityIndicator(radius: 20,));
+                              child: CupertinoActivityIndicator(
+                            radius: 20,
+                          ));
                         } else if (state is ComapreDataLoaded) {
                           return Padding(
                             padding: const EdgeInsets.only(
@@ -86,12 +89,11 @@ class HomeScreen extends StatelessWidget {
                             child: ListView.builder(
                               reverse: true,
                               itemCount: state.taskList.length,
-                              itemBuilder: (context, index ) {
+                              itemBuilder: (context, index) {
                                 final task = state.taskList[index];
                                 return Container(
-                                    height:
-                                        MediaQuery.of(context).size.height *
-                                            0.075,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.075,
                                     decoration: const BoxDecoration(
                                         border: Border(
                                             top: BorderSide(
@@ -103,9 +105,7 @@ class HomeScreen extends StatelessWidget {
                                         CustomIcons().buildIcon(
                                             context,
                                             task['category'],
-                                            MediaQuery.of(context)
-                                                    .size
-                                                    .height *
+                                            MediaQuery.of(context).size.height *
                                                 0.06),
                                         SizedBox(
                                           width: MediaQuery.of(context)
@@ -128,7 +128,23 @@ class HomeScreen extends StatelessWidget {
                                               style: ToDoTextStyles.grey14,
                                             ),
                                           ],
-                                        )
+                                        ),
+                                      //todo add checkbox here
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: BlocBuilder<CheckBoxBloc, CheckBoxState>(
+                                              builder: (context, checkboxState) {
+                                                return Checkbox(
+                                                  value: checkboxState.isChecked,
+                                                  onChanged: (bool? newValue) {
+                                                    context.read<CheckBoxBloc>().add(ToggleCheckBox());
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                        ),
+                                      ),
                                       ],
                                     ));
                               },
