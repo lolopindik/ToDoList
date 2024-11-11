@@ -85,9 +85,9 @@ class HomeScreen extends StatelessWidget {
                         } else if (state is ComapreDataLoaded) {
                           return Padding(
                             padding: const EdgeInsets.only(
-                                top: 5, left: 15, right: 15),
+                                top: 10, left: 15, right: 15),
                             child: ListView.builder(
-                              reverse: true,
+                              padding: EdgeInsets.zero,
                               itemCount: state.taskList.length,
                               itemBuilder: (context, index) {
                                 final task = state.taskList[index];
@@ -129,7 +129,6 @@ class HomeScreen extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                      //todo add checkbox here
                                       Expanded(
                                         child: Align(
                                           alignment: Alignment.centerRight,
@@ -174,6 +173,7 @@ class HomeScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30)),
                     child: Center(
                       child: ListView.builder(
+                          padding: EdgeInsets.zero,
                           itemCount: 10,
                           itemBuilder: (context, index) {
                             return Container(
