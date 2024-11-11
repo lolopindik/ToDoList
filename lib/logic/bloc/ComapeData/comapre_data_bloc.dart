@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:bloc_to_do/logic/bloc/CheckBox/check_box_bloc.dart';
 import 'package:bloc_to_do/logic/funcs/get_json.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,18 +8,8 @@ class ComapreDataBloc extends Bloc<ComapreDataEvent, ComapreDataState> {
   //* Обработка класса json из shared preferences
   final GetJson getJson;
 
-  final CheckBoxBloc checkBoxBloc;
-  late final StreamSubscription checkBoxBlocSubscription;
-
-  ComapreDataBloc(this.getJson, this.checkBoxBloc) : super(ComapreDataInitial()) {
+  ComapreDataBloc(this.getJson) : super(ComapreDataInitial()) {
     on<FetchDataEvent>(_onFetchData);
-    checkBoxBlocSubscription = checkBoxBloc.stream.listen(
-      (checkBoxState){
-        if (checkBoxState is CheckBoxIsChecked){
-          add(ToggleCheckBox() as ComapreDataEvent);
-        }
-      }
-    );
   }
 
   //* Обработка события с FetchData

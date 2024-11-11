@@ -128,8 +128,7 @@ class HomeScreen extends StatelessWidget {
                                               style: ToDoTextStyles.grey14,
                                             ),
                                           ],
-                                        ),
-                                        //todo: add here checkbox
+                                        )
                                       ],
                                     ));
                               },

@@ -1,5 +1,4 @@
 import 'package:bloc_to_do/logic/bloc/CategoryPicker/categorypicker_cubit.dart';
-import 'package:bloc_to_do/logic/bloc/CheckBox/check_box_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/ComapeData/comapre_data_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/DataCollection/data_collection_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
@@ -18,7 +17,7 @@ class AppRouter {
       case '/home':
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
-                  create: (context) => ComapreDataBloc(GetJson(), CheckBoxBloc())..fetchData(),
+                  create: (context) => ComapreDataBloc(GetJson())..fetchData(),
                   child: const HomeScreen(),
                 ));
       case '/add_task':
@@ -42,7 +41,7 @@ class AppRouter {
       default:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
-                  create: (context) => ComapreDataBloc(GetJson(), CheckBoxBloc())..fetchData(),
+                  create: (context) => ComapreDataBloc(GetJson())..fetchData(),
                   child: const HomeScreen(),
                 ));
     }
