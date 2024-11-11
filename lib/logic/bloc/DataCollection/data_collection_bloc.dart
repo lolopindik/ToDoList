@@ -3,6 +3,7 @@ import 'package:bloc_to_do/logic/bloc/CategoryPicker/categorypicker_cubit.dart';
 import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TextFieldHandler/text_field_handler_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
+import 'package:bloc_to_do/logic/funcs/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,6 +28,8 @@ class DataCollectionBloc
       SaveDataEvent event, Emitter<DataCollectionState> emit) async {
     try {
       //* Собираем данные с блоков
+      final id = ID().generateUuid();
+
       final category = (categorypickerCubit.state is CategorypickerSelected)
           ? (categorypickerCubit.state as CategorypickerSelected).categoryIndex
           : null;
@@ -43,7 +46,8 @@ class DataCollectionBloc
           : null;
 
       //* Проверяем заполненность полей
-      if (category == null ||
+      if (id.isEmpty ||
+          category == null ||
           selectedDate == null ||
           title.isEmpty ||
           notes.isEmpty ||
@@ -54,6 +58,7 @@ class DataCollectionBloc
 
       //* Создаем массив с собранными данными
       final Map<String, dynamic> collectedData = {
+        'id': id,
         'title': title,
         'category': category,
         'notes': notes,
