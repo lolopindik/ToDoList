@@ -16,7 +16,9 @@ class ComapreDataBloc extends Bloc<ComapreDataEvent, ComapreDataState> {
   Future<void> _onFetchData(
       FetchDataEvent event, Emitter<ComapreDataState> emit) async {
     emit(ComapreDataLoading());
-
+    
+    getJson.printCollectedData();
+    
     try {
       final tasks = await getJson.getCollectedData();
       emit(ComapreDataLoaded(taskList: tasks));

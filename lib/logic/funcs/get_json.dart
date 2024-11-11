@@ -1,5 +1,6 @@
-import 'dart:convert';
+// ignore_for_file: avoid_print
 
+import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GetJson {
@@ -13,6 +14,19 @@ class GetJson {
       }).toList();
     } else {
       return [];
+    }
+  }
+
+  Future<void> printCollectedData() async {
+    List<Map<String, dynamic>> data = await getCollectedData();
+
+    if (data.isEmpty) {
+      print('Нет данных для вывода.');
+    } else {
+      print('Список данных:');
+      for (var item in data) {
+        print(item);
+      }
     }
   }
 }
