@@ -83,6 +83,14 @@ class HomeScreen extends StatelessWidget {
                             radius: 20,
                           ));
                         } else if (state is ComapreDataLoaded) {
+                          if (state.taskList.isEmpty) {
+                            return const Center(
+                              child: Text(
+                                'No active tasks',
+                                style: ToDoTextStyles.black16,
+                              ),
+                            );
+                          }
                           return Padding(
                             padding: const EdgeInsets.only(
                                 top: 10, left: 15, right: 15),
@@ -92,69 +100,68 @@ class HomeScreen extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 final task = state.taskList[index];
                                 return Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.075,
-                                    decoration: const BoxDecoration(
-                                        border: Border(
-                                            top: BorderSide(
-                                                width: 1,
-                                                color: ToDoColors
-                                                    .secondaryColor))),
-                                    child: Row(
-                                      children: [
-                                        CustomIcons().buildIcon(
-                                            context,
-                                            task['category'],
-                                            MediaQuery.of(context).size.height *
-                                                0.06),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.03,
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              task['title'],
-                                              style: ToDoTextStyles.black16,
-                                            ),
-                                            Text(
-                                              task['selectedTime'],
-                                              style: ToDoTextStyles.grey14,
-                                            ),
-                                          ],
-                                        ),
-                                        Expanded(
-                                          child: Align(
-                                            alignment: Alignment.centerRight,
-                                            child: BlocBuilder<CheckBoxBloc,
-                                                CheckBoxState>(
-                                              builder:
-                                                  (context, checkboxState) {
-                                                final isChecked =
-                                                    checkboxState.checkedItems[
-                                                            task['id']] ??
-                                                        false;
-                                                return Checkbox(
-                                                  value: isChecked,
-                                                  onChanged: (bool? newValue) {
-                                                    context
-                                                        .read<CheckBoxBloc>()
-                                                        .add(ToggleCheckBox(
-                                                            task['id']));
-                                                  },
-                                                );
-                                              },
-                                            ),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.075,
+                                  decoration: const BoxDecoration(
+                                      border: Border(
+                                          top: BorderSide(
+                                              width: 1,
+                                              color:
+                                                  ToDoColors.secondaryColor))),
+                                  child: Row(
+                                    children: [
+                                      CustomIcons().buildIcon(
+                                          context,
+                                          task['category'],
+                                          MediaQuery.of(context).size.height *
+                                              0.06),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.03,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            task['title'],
+                                            style: ToDoTextStyles.black16,
+                                          ),
+                                          Text(
+                                            task['selectedTime'],
+                                            style: ToDoTextStyles.grey14,
+                                          ),
+                                        ],
+                                      ),
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: BlocBuilder<CheckBoxBloc,
+                                              CheckBoxState>(
+                                            builder: (context, checkboxState) {
+                                              final isChecked =
+                                                  checkboxState.checkedItems[
+                                                          task['id']] ??
+                                                      false;
+                                              return Checkbox(
+                                                value: isChecked,
+                                                onChanged: (bool? newValue) {
+                                                  context
+                                                      .read<CheckBoxBloc>()
+                                                      .add(ToggleCheckBox(
+                                                          task['id']));
+                                                },
+                                              );
+                                            },
                                           ),
                                         ),
-                                      ],
-                                    ));
+                                      ),
+                                    ],
+                                  ),
+                                );
                               },
                             ),
                           );
