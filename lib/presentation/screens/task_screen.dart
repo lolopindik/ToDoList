@@ -49,6 +49,7 @@ class TaskScreen extends StatelessWidget {
       body: SafeArea(
         top: false,
         child: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,  
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
