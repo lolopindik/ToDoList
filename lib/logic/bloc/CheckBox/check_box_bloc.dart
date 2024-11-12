@@ -4,9 +4,11 @@ part 'check_box_event.dart';
 part 'check_box_state.dart';
 
 class CheckBoxBloc extends Bloc<CheckBoxEvent, CheckBoxState> {
-  CheckBoxBloc() : super(CheckBoxInitial(false)) {
+  CheckBoxBloc() : super(CheckBoxInitial()) {
     on<ToggleCheckBox>((event, emit) {
-      emit(CheckBoxIsChecked(!state.isChecked));
+      final updatedCheckedItems = Map<String, bool>.from(state.checkedItems);
+      updatedCheckedItems[event.taskId] = !(state.checkedItems[event.taskId] ?? false);
+      emit(CheckBoxIsChecked(updatedCheckedItems));
     });
   }
-}
+}  

@@ -3,15 +3,15 @@
 part of 'check_box_bloc.dart';
 
 sealed class CheckBoxState {
-  final bool isChecked;
+  final Map<String, bool> checkedItems;
 
-  CheckBoxState(this.isChecked);
+  CheckBoxState(this.checkedItems);
 }
 
 class CheckBoxInitial extends CheckBoxState {
-  CheckBoxInitial(bool isChecked) : super(isChecked);
+  CheckBoxInitial() : super({});
 }
 
 class CheckBoxIsChecked extends CheckBoxState {
-  CheckBoxIsChecked(bool isChecked) : super(isChecked);
+  CheckBoxIsChecked(Map<String, bool> checkedItems) : super(checkedItems);
 }

@@ -129,21 +129,30 @@ class HomeScreen extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                      Expanded(
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: BlocBuilder<CheckBoxBloc, CheckBoxState>(
-                                              builder: (context, checkboxState) {
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: BlocBuilder<CheckBoxBloc,
+                                                CheckBoxState>(
+                                              builder:
+                                                  (context, checkboxState) {
+                                                final isChecked =
+                                                    checkboxState.checkedItems[
+                                                            task['id']] ??
+                                                        false;
                                                 return Checkbox(
-                                                  value: checkboxState.isChecked,
+                                                  value: isChecked,
                                                   onChanged: (bool? newValue) {
-                                                    context.read<CheckBoxBloc>().add(ToggleCheckBox());
+                                                    context
+                                                        .read<CheckBoxBloc>()
+                                                        .add(ToggleCheckBox(
+                                                            task['id']));
                                                   },
                                                 );
                                               },
                                             ),
+                                          ),
                                         ),
-                                      ),
                                       ],
                                     ));
                               },
