@@ -100,8 +100,10 @@ class HomeScreen extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 final task = state.taskList[index];
                                 return GestureDetector(
-                                  onTap: () => Navigator.of(context)
-                                      .pushNamed('/details'),
+                                  onTap: () => Navigator.of(context).pushNamed(
+                                    '/details',
+                                    arguments: task['id'],
+                                  ),
                                   child: Container(
                                     height: MediaQuery.of(context).size.height *
                                         0.075,
