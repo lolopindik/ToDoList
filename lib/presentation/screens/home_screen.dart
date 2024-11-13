@@ -99,74 +99,80 @@ class HomeScreen extends StatelessWidget {
                               itemCount: state.taskList.length,
                               itemBuilder: (context, index) {
                                 final task = state.taskList[index];
-                                return Container(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.075,
-                                  decoration: const BoxDecoration(
-                                      border: Border(
-                                          top: BorderSide(
-                                              width: 1,
-                                              color:
-                                                  ToDoColors.secondaryColor))),
-                                  child: Row(
-                                    children: [
-                                      CustomIcons().buildIcon(
-                                          context,
-                                          task['category'],
-                                          MediaQuery.of(context).size.height *
-                                              0.06),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.03,
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.5,
-                                            child: Text(
-                                              task['title'],
-                                              style: ToDoTextStyles.black16,
-                                              overflow: TextOverflow.ellipsis,
+                                return GestureDetector(
+                                  onTap: () => Navigator.of(context)
+                                      .pushNamed('/details'),
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.075,
+                                    decoration: const BoxDecoration(
+                                        border: Border(
+                                            top: BorderSide(
+                                                width: 1,
+                                                color: ToDoColors
+                                                    .secondaryColor))),
+                                    child: Row(
+                                      children: [
+                                        CustomIcons().buildIcon(
+                                            context,
+                                            task['category'],
+                                            MediaQuery.of(context).size.height *
+                                                0.06),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.03,
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.5,
+                                              child: Text(
+                                                task['title'],
+                                                style: ToDoTextStyles.black16,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                            Text(
+                                              task['selectedTime'],
+                                              style: ToDoTextStyles.grey14,
+                                            ),
+                                          ],
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: BlocBuilder<CheckBoxBloc,
+                                                CheckBoxState>(
+                                              builder:
+                                                  (context, checkboxState) {
+                                                final isChecked =
+                                                    checkboxState.checkedItems[
+                                                            task['id']] ??
+                                                        false;
+                                                return Checkbox(
+                                                  value: isChecked,
+                                                  onChanged: (bool? newValue) {
+                                                    context
+                                                        .read<CheckBoxBloc>()
+                                                        .add(ToggleCheckBox(
+                                                            task['id']));
+                                                  },
+                                                );
+                                              },
                                             ),
                                           ),
-                                          Text(
-                                            task['selectedTime'],
-                                            style: ToDoTextStyles.grey14,
-                                          ),
-                                        ],
-                                      ),
-                                      Expanded(
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: BlocBuilder<CheckBoxBloc,
-                                              CheckBoxState>(
-                                            builder: (context, checkboxState) {
-                                              final isChecked =
-                                                  checkboxState.checkedItems[
-                                                          task['id']] ??
-                                                      false;
-                                              return Checkbox(
-                                                value: isChecked,
-                                                onChanged: (bool? newValue) {
-                                                  context
-                                                      .read<CheckBoxBloc>()
-                                                      .add(ToggleCheckBox(
-                                                          task['id']));
-                                                },
-                                              );
-                                            },
-                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 );
                               },

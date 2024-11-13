@@ -7,6 +7,7 @@ import 'package:bloc_to_do/logic/bloc/TextFieldHandler/text_field_handler_bloc.d
 import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
 import 'package:bloc_to_do/logic/funcs/get_json.dart';
 import 'package:bloc_to_do/presentation/animations/transition_animation.dart';
+import 'package:bloc_to_do/presentation/screens/details_screen.dart';
 import 'package:bloc_to_do/presentation/screens/home_screen.dart';
 import 'package:bloc_to_do/presentation/screens/task_screen.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,8 @@ class AppRouter {
                   ],
                   child: const HomeScreen(),
                 ));
+      case '/details':
+        return MaterialPageRoute(builder: (context) => const DetailsScreen());
       case '/add_task':
         return TransitionAnimation.createRoute(MultiBlocProvider(
           providers: [
