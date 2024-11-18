@@ -1,7 +1,10 @@
+import 'package:bloc_to_do/constants/preferences.dart';
 import 'package:bloc_to_do/logic/bloc/CompareTask/compare_task_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/DataTransfer/data_transfer_bloc.dart';
+import 'package:bloc_to_do/presentation/widgets/bottom_button_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -10,7 +13,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Test Details')),
+      bottomNavigationBar: CustomButton().buildBottombar(context, 'Edit task', (){}),
       body: BlocBuilder<CompareTaskBloc, CompareTaskState>(
         builder: (context, state) {
           if (state is CompareTaskLoading) {
@@ -20,19 +23,67 @@ class DetailsScreen extends StatelessWidget {
             return BlocBuilder<DataTransferBloc, DataTransferState>(
               builder: (context, dataState) {
                 if (dataState is DartaTransferSuccess) {
-                  return ListView(
-                    children: [
-                      ListTile(
-                        title: Text('Task ID: ${task['id']}'),
+                  return Stack(children: [
+                    Column(
+                      children: [
+                        Flexible(
+                            flex: 1,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'lib/assets/img/HomeFrame.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.076,
+                                  ),
+                                  const Center(
+                                      child: Text(
+                                    'Details',
+                                    style: ToDoTextStyles.white30,
+                                  )),
+                                ],
+                              ),
+                            )),
+                        Flexible(
+                            flex: 5,
+                            child: Container(
+                              color: ToDoColors.mainColor,
+                            )),
+                      ],
+                    ),
+                    Positioned.fill(
+                        child: Padding(
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.065,
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: CircleAvatar(
+                              backgroundColor: ToDoColors.mainColor,
+                              radius:
+                                  MediaQuery.of(context).size.height * 0.035,
+                              child: IconButton(
+                                onPressed: () => Navigator.pop(context),
+                                icon: Icon(Icons.arrow_back_rounded,
+                                    size: MediaQuery.of(context).size.height *
+                                        0.05),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      ListTile(
-                        title: Text('Task Title: ${task['title']}'),
-                      ),
-                      ListTile(
-                        title: Text('Task Note: ${task['notes']}'),
-                      ),
-                    ],
-                  );
+                    ))
+                  ]);
                 }
                 return const Center(
                     child: CupertinoActivityIndicator(
