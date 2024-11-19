@@ -30,24 +30,25 @@ class AppRouter {
                   child: const HomeScreen(),
                 ));
       case '/details':
-        final String taskId = routeSettings.arguments as String;
+        final args = routeSettings.arguments as Map<String, dynamic>;
+        final String taskId = args['taskId'];
+        final Offset tapPosition = args['tapPosition'];
 
-        return MaterialPageRoute(
-          builder: (context) {
-            return MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (context) =>
-                      CompareTaskBloc(GetJson())..fetchTaskById(taskId),
-                ),
-                BlocProvider(
-                  create: (context) =>
-                      DataTransferBloc()..add(DataTransferEvent(taskId)),
-                ),
-              ],
-              child: const DetailsScreen(),
-            );
-          },
+        return DetailsTransitionAnimation.createRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    CompareTaskBloc(GetJson())..fetchTaskById(taskId),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    DataTransferBloc()..add(DataTransferEvent(taskId)),
+              ),
+            ],
+            child: const DetailsScreen(),
+          ),
+          tapPosition,
         );
       case '/add_task':
         return TransitionAnimation.createRoute(MultiBlocProvider(
