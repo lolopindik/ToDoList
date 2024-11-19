@@ -4,7 +4,6 @@ import 'package:bloc_to_do/logic/bloc/DataTransfer/data_transfer_bloc.dart';
 import 'package:bloc_to_do/presentation/widgets/bottom_button_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailsScreen extends StatelessWidget {
