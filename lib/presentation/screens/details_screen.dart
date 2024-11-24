@@ -5,6 +5,7 @@ import 'package:bloc_to_do/presentation/widgets/bottom_button_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
@@ -12,7 +13,8 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CustomButton().buildBottombar(context, 'Edit task', (){}),
+      bottomNavigationBar:
+          CustomButton().buildBottombar(context, 'Edit task', () {}),
       body: BlocBuilder<CompareTaskBloc, CompareTaskState>(
         builder: (context, state) {
           if (state is CompareTaskLoading) {
@@ -57,31 +59,63 @@ class DetailsScreen extends StatelessWidget {
                       ],
                     ),
                     Positioned.fill(
-                        child: Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.065,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: CircleAvatar(
-                              backgroundColor: ToDoColors.mainColor,
-                              radius:
-                                  MediaQuery.of(context).size.height * 0.035,
-                              child: IconButton(
-                                onPressed: () => Navigator.pop(context),
-                                icon: Icon(Icons.arrow_back_rounded,
-                                    size: MediaQuery.of(context).size.height *
-                                        0.05),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.065,
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: CircleAvatar(
+                                backgroundColor: ToDoColors.mainColor,
+                                radius:
+                                    MediaQuery.of(context).size.height * 0.035,
+                                child: IconButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  icon: Icon(Icons.arrow_back_rounded,
+                                      size: MediaQuery.of(context).size.height *
+                                          0.05),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.04,
+                            ),
+                            Row(children: [
+                              (task['category'] == 1)
+                                ? SvgPicture.asset(
+                                    'lib/assets/icons/Category=Event.svg',
+                                    height: MediaQuery.of(context).size.height *
+                                        0.08)
+                                : (task['category'] == 2)
+                                    ? SvgPicture.asset(
+                                        'lib/assets/icons/Category=Goal.svg',
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.08)
+                                    : SvgPicture.asset(
+                                        'lib/assets/icons/Category=Task.svg',
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.08),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15,),
+                              child:  SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                child: Text(task['title'],
+                                    style: ToDoTextStyles.black24,
+                                    overflow: TextOverflow.clip),
+                              ),
+                            ),
+                            ]),
+                          ],
+                        ),
                       ),
-                    ))
+                    ),
                   ]);
                 }
                 return const Center(

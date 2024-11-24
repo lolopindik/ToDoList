@@ -19,6 +19,8 @@ class ToDoTextStyles {
       TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600);
   static const TextStyle black30 =
       TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w600);
+  static const TextStyle black24 =
+      TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600);
   static const TextStyle black16 =
       TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600);
 }
