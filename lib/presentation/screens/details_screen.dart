@@ -65,6 +65,8 @@ class DetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
                               task['category'] == 1
@@ -79,7 +81,7 @@ class DetailsScreen extends StatelessWidget {
                               child: Text(
                                 task['title'] ?? '',
                                 style: ToDoTextStyles.black24,
-                                overflow: TextOverflow.ellipsis,
+                                overflow: TextOverflow.clip,
                               ),
                             ),
                           ],
