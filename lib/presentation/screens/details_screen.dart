@@ -25,7 +25,7 @@ class DetailsScreen extends StatelessWidget {
                   padding: EdgeInsets.only(
                       left: 15,
                       right: 15,
-                      top: MediaQuery.of(context).size.height * 0.04),
+                      top: MediaQuery.of(context).size.height * 0.045),
                   height: MediaQuery.of(context).size.height * 0.15,
                   decoration: const BoxDecoration(
                     color: ToDoColors.mainColor,
@@ -52,7 +52,7 @@ class DetailsScreen extends StatelessWidget {
                       ),
                       const Text(
                         'Details',
-                        style: ToDoTextStyles.white30,
+                        style: ToDoTextStyles.white24,
                       ),
                       const SizedBox(width: 48),
                     ],
@@ -85,19 +85,47 @@ class DetailsScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        Text(
-                          'Data: ${task['selectedDate']}'.substring(0, 16),
-                          style: ToDoTextStyles.black24,
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              const TextSpan(
+                                text: 'Data: ',
+                                style: ToDoTextStyles.black24,
+                              ),
+                              TextSpan(
+                                  text: '${task['selectedDate']}'
+                                      .substring(0, 10),
+                                  style: ToDoTextStyles.black18),
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 10),
-                        Text(
-                          'Time: ${task['selectedTime'] ?? ''}',
-                          style: ToDoTextStyles.black24,
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              const TextSpan(
+                                text: 'Time: ',
+                                style: ToDoTextStyles.black24,
+                              ),
+                              TextSpan(
+                                  text: '${task['selectedTime']}',
+                                  style: ToDoTextStyles.black18),
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 35),
-                        Text(
-                          'Note: ${task['notes']}',
-                          style: ToDoTextStyles.black24,
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              const TextSpan(
+                                text: 'Note: ',
+                                style: ToDoTextStyles.black24,
+                              ),
+                              TextSpan(
+                                  text: '${task['notes']}',
+                                  style: ToDoTextStyles.black18),
+                            ],
+                          ),
                         ),
                       ],
                     ),
