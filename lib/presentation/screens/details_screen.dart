@@ -10,110 +10,106 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        bottomNavigationBar: CustomButton()
-            .buildBottombar(context, 'Edit task', () {}), // TODO: Add function
-        body: BlocBuilder<CompareTaskBloc, CompareTaskState>(
-          builder: (context, state) {
-            if (state is CompareTaskLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is CompareTaskSuccess) {
-              final task = state.task;
-              return Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(
-                        left: 15,
-                        right: 15,
-                        top: MediaQuery.of(context).size.height * 0.04),
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    decoration: const BoxDecoration(
-                      color: ToDoColors.mainColor,
-                      image: DecorationImage(
-                        image: AssetImage('lib/assets/img/HomeFrame.png'),
-                        fit: BoxFit.cover,
-                      ),
+    return Scaffold(
+      bottomNavigationBar: CustomButton()
+          .buildBottombar(context, 'Edit task', () {}), // TODO: Add function
+      body: BlocBuilder<CompareTaskBloc, CompareTaskState>(
+        builder: (context, state) {
+          if (state is CompareTaskLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is CompareTaskSuccess) {
+            final task = state.task;
+            return Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 15,
+                      right: 15,
+                      top: MediaQuery.of(context).size.height * 0.04),
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  decoration: const BoxDecoration(
+                    color: ToDoColors.mainColor,
+                    image: DecorationImage(
+                      image: AssetImage('lib/assets/img/HomeFrame.png'),
+                      fit: BoxFit.cover,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: MediaQuery.of(context).size.height * 0.035,
-                          backgroundColor: Colors.white,
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_back,
-                              color: ToDoColors.seedColor,
-                              size: 35,
-                            ),
-                            onPressed: () => Navigator.pop(context),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: MediaQuery.of(context).size.height * 0.035,
+                        backgroundColor: Colors.white,
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: ToDoColors.seedColor,
+                            size: 35,
                           ),
+                          onPressed: () => Navigator.pop(context),
                         ),
-                        const Text(
-                          'Details',
-                          style: ToDoTextStyles.white30,
+                      ),
+                      const Text(
+                        'Details',
+                        style: ToDoTextStyles.white30,
+                      ),
+                      const SizedBox(width: 48),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              task['category'] == 1
+                                  ? 'lib/assets/icons/Category=Event.svg'
+                                  : task['category'] == 2
+                                      ? 'lib/assets/icons/Category=Goal.svg'
+                                      : 'lib/assets/icons/Category=Task.svg',
+                              height: MediaQuery.of(context).size.height * 0.07,
+                            ),
+                            const SizedBox(width: 15),
+                            Expanded(
+                              child: Text(
+                                task['title'] ?? '',
+                                style: ToDoTextStyles.black24,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 48),
+                        const SizedBox(height: 20),
+                        Text(
+                          'Data: ${task['selectedDate']}'.substring(0, 16),
+                          style: ToDoTextStyles.black24,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Time: ${task['selectedTime'] ?? ''}',
+                          style: ToDoTextStyles.black24,
+                        ),
+                        const SizedBox(height: 35),
+                        Text(
+                          'Note: ${task['notes']}',
+                          style: ToDoTextStyles.black24,
+                        ),
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                task['category'] == 1
-                                    ? 'lib/assets/icons/Category=Event.svg'
-                                    : task['category'] == 2
-                                        ? 'lib/assets/icons/Category=Goal.svg'
-                                        : 'lib/assets/icons/Category=Task.svg',
-                                height:
-                                    MediaQuery.of(context).size.height * 0.07,
-                              ),
-                              const SizedBox(width: 15),
-                              Expanded(
-                                child: Text(
-                                  task['title'] ?? '',
-                                  style: ToDoTextStyles.black24,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            'Data: ${task['selectedDate']}'.substring(0, 16),
-                            style: ToDoTextStyles.black24,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Time: ${task['selectedTime'] ?? ''}',
-                            style: ToDoTextStyles.black24,
-                          ),
-                          const SizedBox(height: 35),
-                          Text(
-                            'Note: ${task['notes']}',
-                            style: ToDoTextStyles.black24,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            } else if (state is CompareTaskFailure) {
-              return Center(child: Text('Error: ${state.error}'));
-            }
-            return const Center(child: Text('No data available'));
-          },
-        ),
+                ),
+              ],
+            );
+          } else if (state is CompareTaskFailure) {
+            return Center(child: Text('Error: ${state.error}'));
+          }
+          return const Center(child: Text('No data available'));
+        },
       ),
     );
   }
