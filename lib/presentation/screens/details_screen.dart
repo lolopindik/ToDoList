@@ -89,7 +89,7 @@ class DetailsScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
                           Text(
-                            'Data: ${task['selectedDate'] ?? ''}',
+                            'Data: ${task['selectedDate']}'.substring(0, 16),
                             style: ToDoTextStyles.black24,
                           ),
                           const SizedBox(height: 10),
