@@ -11,6 +11,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ToDoColors.mainColor,
       bottomNavigationBar: CustomButton()
           .buildBottombar(context, 'Edit task', () {}), // TODO: Add function
       body: BlocBuilder<CompareTaskBloc, CompareTaskState>(
@@ -40,7 +41,7 @@ class DetailsScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: MediaQuery.of(context).size.height * 0.035,
-                        backgroundColor: Colors.white,
+                        backgroundColor: ToDoColors.mainColor,
                         child: IconButton(
                           icon: const Icon(
                             Icons.arrow_back,
