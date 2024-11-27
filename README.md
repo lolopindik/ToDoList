@@ -1,16 +1,9 @@
-# bloc_to_do
+# Bloc ToDo
 
-A new Flutter project.
+## Program visual
 
-## Getting Started
+![image](https://github.com/user-attachments/assets/df3efb4e-f059-4989-bb79-88550a3a14d6)
 
-This project is a starting point for a Flutter application.
+![image](https://github.com/user-attachments/assets/2c1f7f7a-b452-4664-9ce2-5825b7e07f2f)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![image](https://github.com/user-attachments/assets/0655d533-eab3-4a13-986f-e639642c8974)
