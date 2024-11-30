@@ -10,6 +10,7 @@ import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
 import 'package:bloc_to_do/logic/funcs/get_json.dart';
 import 'package:bloc_to_do/presentation/animations/transition_animation.dart';
 import 'package:bloc_to_do/presentation/screens/details_screen.dart';
+import 'package:bloc_to_do/presentation/screens/edit_task_screen.dart';
 import 'package:bloc_to_do/presentation/screens/home_screen.dart';
 import 'package:bloc_to_do/presentation/screens/task_screen.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +69,8 @@ class AppRouter {
           ],
           child: const TaskScreen(),
         ));
+      case '/edit_task':
+        return MaterialPageRoute(builder: (context) => const EditTask());
       default:
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(

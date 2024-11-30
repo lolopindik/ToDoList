@@ -14,8 +14,8 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ToDoColors.mainColor,
-      bottomNavigationBar: CustomButton()
-          .buildBottombar(context, 'Edit task', () {}), // TODO: Add function
+      bottomNavigationBar: CustomButton().buildBottombar(context, 'Edit task',
+          () => Navigator.of(context).pushNamed('/edit_task')),
       body: BlocBuilder<CompareTaskBloc, CompareTaskState>(
         builder: (context, state) {
           if (state is CompareTaskLoading) {
