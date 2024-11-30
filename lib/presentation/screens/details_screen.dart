@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc_to_do/constants/preferences.dart';
 import 'package:bloc_to_do/logic/bloc/CompareTask/compare_task_bloc.dart';
 import 'package:bloc_to_do/presentation/widgets/bottom_button_widget.dart';
@@ -43,11 +45,17 @@ class DetailsScreen extends StatelessWidget {
                         radius: MediaQuery.of(context).size.height * 0.035,
                         backgroundColor: ToDoColors.mainColor,
                         child: IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: ToDoColors.seedColor,
-                            size: 35,
-                          ),
+                          icon: (Platform.isIOS)
+                              ? const Icon(
+                                  Icons.arrow_back_ios_new,
+                                  color: ToDoColors.seedColor,
+                                  size: 35,
+                                )
+                              : const Icon(
+                                  Icons.arrow_back,
+                                  color: ToDoColors.seedColor,
+                                  size: 35,
+                                ),
                           onPressed: () => Navigator.pop(context),
                         ),
                       ),
