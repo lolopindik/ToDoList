@@ -3,7 +3,6 @@ import 'package:bloc_to_do/logic/bloc/CheckBox/check_box_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/ComapeData/comapre_data_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/CompareTask/compare_task_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/DataCollection/data_collection_bloc.dart';
-import 'package:bloc_to_do/logic/bloc/DataTransfer/data_transfer_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TextFieldHandler/text_field_handler_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
@@ -41,10 +40,6 @@ class AppRouter {
               BlocProvider(
                 create: (context) =>
                     CompareTaskBloc(GetJson())..fetchTaskById(taskId),
-              ),
-              BlocProvider(
-                create: (context) =>
-                    DataTransferBloc()..add(DataTransferEvent(taskId)),
               ),
             ],
             child: const DetailsScreen(),
