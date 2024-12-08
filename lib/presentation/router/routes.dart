@@ -65,7 +65,23 @@ class AppRouter {
           child: const TaskScreen(),
         ));
       case '/edit_task':
-        return MaterialPageRoute(builder: (context) => const EditTask());
+        return TransitionAnimation.createRoute(MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => DatepickerBloc()),
+            BlocProvider(create: (context) => TimepickerBloc()),
+            BlocProvider(create: (context) => TextFieldHandlerBloc()),
+            BlocProvider(create: (context) => CategorypickerCubit()),
+            BlocProvider(
+              create: (context) => DataCollectionBloc(
+                context.read<CategorypickerCubit>(),
+                context.read<DatepickerBloc>(),
+                context.read<TextFieldHandlerBloc>(),
+                context.read<TimepickerBloc>(),
+              ),
+            ),
+          ],
+          child: const EditTask(),
+        ));
       default:
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(

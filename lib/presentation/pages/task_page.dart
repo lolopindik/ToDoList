@@ -7,7 +7,7 @@ import 'package:bloc_to_do/presentation/widgets/time_picker_widget.dart';
 import 'package:flutter/material.dart';
 
 class TaskPage {
-  Widget buildTaskPage(BuildContext context) {
+  Widget buildTaskPage(BuildContext context, bool edit) {
     return SafeArea(
       top: false,
       child: SingleChildScrollView(
@@ -39,8 +39,8 @@ class TaskPage {
                           child: Center(
                             child: ScaleAnimation().createAnimation(
                               context,
-                              const Text(
-                                'Add new task',
+                              Text(
+                                edit ? 'Edit Task' : 'Add new task',
                                 style: ToDoTextStyles.white24,
                               ),
                             ),

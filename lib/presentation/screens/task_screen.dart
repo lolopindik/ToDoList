@@ -11,6 +11,6 @@ class TaskScreen extends StatelessWidget {
     return Scaffold(
         backgroundColor: ToDoColors.mainColor,
         bottomNavigationBar: TaskConsumer().buildTaskBlocConsumer(context),
-        body: TaskPage().buildTaskPage(context));
+        body: TaskPage().buildTaskPage(context, false));
   }
 }
