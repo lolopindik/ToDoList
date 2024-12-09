@@ -7,7 +7,7 @@ import 'package:bloc_to_do/presentation/widgets/time_picker_widget.dart';
 import 'package:flutter/material.dart';
 
 class TaskPage {
-  Widget buildTaskPage(BuildContext context, bool edit) {
+  Widget buildTaskPage(BuildContext context, bool edit, [Map? task]) {
     return SafeArea(
       top: false,
       child: SingleChildScrollView(

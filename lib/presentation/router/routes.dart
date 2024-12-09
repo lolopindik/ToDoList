@@ -65,6 +65,7 @@ class AppRouter {
           child: const TaskScreen(),
         ));
       case '/edit_task':
+        final task = routeSettings.arguments as Map<String, dynamic>;
         return TransitionAnimation.createRoute(MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => DatepickerBloc()),
@@ -80,7 +81,7 @@ class AppRouter {
               ),
             ),
           ],
-          child: const EditTask(),
+          child: EditTask(task: task),
         ));
       default:
         return MaterialPageRoute(
