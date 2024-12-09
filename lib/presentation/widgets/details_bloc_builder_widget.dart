@@ -56,7 +56,7 @@ class DetailsBlocBuilderWidget extends DetailsPage {
                       'Details',
                       style: ToDoTextStyles.white24,
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.height * 0.062),
+                    SizedBox(width: MediaQuery.of(context).size.height * 0.065),
                   ],
                 ),
               ),
