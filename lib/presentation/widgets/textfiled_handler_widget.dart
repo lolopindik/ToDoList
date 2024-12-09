@@ -4,10 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TextfiledHandlerWidget {
+  final String? initialTitle;
+  final String? initialNotes;
+
+  TextfiledHandlerWidget({this.initialTitle, this.initialNotes});
+
   Widget buildTitle(BuildContext context) {
+    final bloc = context.read<TextFieldHandlerBloc>();
+
+    if (initialTitle != null) {
+      bloc.titleController.text = initialTitle!;
+    }
+
     return BlocBuilder<TextFieldHandlerBloc, TextFieldHandlerState>(
       builder: (context, state) {
         return TextField(
+          controller: bloc.titleController,
           onChanged: (title) {
             context.read<TextFieldHandlerBloc>().add(TitleEvent(title));
           },
@@ -26,9 +38,16 @@ class TextfiledHandlerWidget {
   }
 
   Widget buildNotes(BuildContext context) {
+    final bloc = context.read<TextFieldHandlerBloc>();
+
+    if (initialNotes != null) {
+      bloc.notesController.text = initialNotes!;
+    }
+
     return BlocBuilder<TextFieldHandlerBloc, TextFieldHandlerState>(
       builder: (context, state) {
         return TextFormField(
+          controller: bloc.notesController,
           onChanged: (notes) {
             context.read<TextFieldHandlerBloc>().add(NotesEvent(notes));
           },

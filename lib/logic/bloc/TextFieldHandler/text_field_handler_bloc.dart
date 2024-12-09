@@ -8,10 +8,13 @@ part 'text_field_handler_state.dart';
 
 class TextFieldHandlerBloc
     extends Bloc<TextFieldHandlerEvent, TextFieldHandlerState> {
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController notesController = TextEditingController();
+  final TextEditingController titleController;
+  final TextEditingController notesController;
 
-  TextFieldHandlerBloc() : super(TextFieldHandlerInitial()) {
+  TextFieldHandlerBloc({String initialTitle = '', String initialNotes = ''})
+      : titleController = TextEditingController(text: initialTitle),
+        notesController = TextEditingController(text: initialNotes),
+        super(TextFieldHandlerInitial()) {
     on<TitleEvent>(_onTitleSelected);
     on<NotesEvent>(_onNotesSelected);
   }
@@ -25,12 +28,13 @@ class TextFieldHandlerBloc
   void _onNotesSelected(NotesEvent event, Emitter<TextFieldHandlerState> emit) {
     notesController.text = event.notes;
     emit(NotesState(event.notes));
-    print('Notes:  ${notesController.text.trim()}');
+    print('Notes: ${notesController.text.trim()}');
   }
 
   @override
   Future<void> close() {
     titleController.dispose();
+    notesController.dispose();
     return super.close();
   }
 }

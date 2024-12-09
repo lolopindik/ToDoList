@@ -86,7 +86,9 @@ class TaskPage {
                           child:
                               Text('Task Title', style: ToDoTextStyles.black16),
                         ),
-                        TextfiledHandlerWidget().buildTitle(context),
+                        TextfiledHandlerWidget(
+                                initialTitle: edit ? '${task?['title']}' : '')
+                            .buildTitle(context),
                         Padding(
                             padding: const EdgeInsets.only(bottom: 24),
                             child: CategoryPickerWidget()
@@ -139,7 +141,9 @@ class TaskPage {
                             ),
                           ),
                         ),
-                        TextfiledHandlerWidget().buildNotes(context)
+                        TextfiledHandlerWidget(
+                                initialNotes: edit ? '${task?['notes']}' : '')
+                            .buildNotes(context)
                       ],
                     ),
                   ),
