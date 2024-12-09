@@ -15,7 +15,6 @@ class SnackbarService {
         // messageTextStyle: ToDoTextStyles.white16,
         contentType: (success) ? ContentType.success : ContentType.failure,
       ),
-      behavior: SnackBarBehavior.floating,
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
