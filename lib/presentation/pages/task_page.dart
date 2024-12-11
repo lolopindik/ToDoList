@@ -91,8 +91,12 @@ class TaskPage {
                             .buildTextHandler(context, 'title'),
                         Padding(
                             padding: const EdgeInsets.only(bottom: 24),
-                            child: CategoryPickerWidget()
-                                .buildCategoryPicker(context)),
+                            child: edit
+                                ? CategoryPickerWidget(
+                                        initialCategory: task?['category'])
+                                    .buildCategoryPicker(context)
+                                : CategoryPickerWidget()
+                                    .buildCategoryPicker(context)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
