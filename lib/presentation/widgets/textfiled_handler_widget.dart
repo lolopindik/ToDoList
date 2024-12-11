@@ -6,57 +6,62 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class TextfiledHandlerWidget {
   final String? initialTitle;
   final String? initialNotes;
+  final String errorMessage = "Error: Incorrect processing";
 
   TextfiledHandlerWidget({this.initialTitle, this.initialNotes});
 
-  Widget buildTitle(BuildContext context) {
+  Widget buildTextHandler(BuildContext context, String type) {
     final bloc = context.read<TextFieldHandlerBloc>();
 
-    if (bloc.titleController.text.isEmpty && initialTitle != null) {
-      bloc.titleController.text = initialTitle!;
+    try {
+      if (type == 'title') {
+        if (bloc.titleController.text.isEmpty) {
+          bloc.titleController.text = initialTitle!;
+        }
+      } else if (type == 'notes') {
+        if (bloc.notesController.text.isEmpty) {
+          bloc.notesController.text = initialNotes!;
+        }
+      } else {
+        bloc.titleController.text = errorMessage;
+        bloc.notesController.text = errorMessage;
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+
+      bloc.titleController.text = errorMessage;
+      bloc.notesController.text = errorMessage;
     }
 
     return BlocBuilder<TextFieldHandlerBloc, TextFieldHandlerState>(
       builder: (context, state) {
-        return TextField(
-          controller: bloc.titleController,
-          onChanged: (title) {
-            bloc.add(TitleEvent(title));
-          },
-          maxLength: 30,
-          decoration: const InputDecoration(
-            hintText: 'Task Title',
-            border: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: ToDoColors.mainColor,
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget buildNotes(BuildContext context) {
-    final bloc = context.read<TextFieldHandlerBloc>();
-
-    if (bloc.notesController.text.isEmpty && initialNotes != null) {
-      bloc.notesController.text = initialNotes!;
-    }
-
-    return BlocBuilder<TextFieldHandlerBloc, TextFieldHandlerState>(
-      builder: (context, state) {
-        return TextFormField(
-          controller: bloc.notesController,
-          onChanged: (notes) {
-            bloc.add(NotesEvent(notes));
-          },
-          maxLines: (MediaQuery.of(context).size.height * 0.008).toInt(),
-          decoration: const InputDecoration(
-            hintText: 'Notes',
-            border: OutlineInputBorder(),
-          ),
-        );
+        return type == 'title'
+            ? TextField(
+                controller: bloc.titleController,
+                onChanged: (title) {
+                  bloc.add(TitleEvent(title));
+                },
+                maxLength: 30,
+                decoration: const InputDecoration(
+                  hintText: 'Task Title',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: ToDoColors.mainColor,
+                    ),
+                  ),
+                ),
+              )
+            : TextFormField(
+                controller: bloc.notesController,
+                onChanged: (notes) {
+                  bloc.add(NotesEvent(notes));
+                },
+                maxLines: (MediaQuery.of(context).size.height * 0.008).toInt(),
+                decoration: const InputDecoration(
+                  hintText: 'Notes',
+                  border: OutlineInputBorder(),
+                ),
+              );
       },
     );
   }

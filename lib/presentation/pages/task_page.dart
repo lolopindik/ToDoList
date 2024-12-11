@@ -88,7 +88,7 @@ class TaskPage {
                         ),
                         TextfiledHandlerWidget(
                                 initialTitle: edit ? '${task?['title']}' : '')
-                            .buildTitle(context),
+                            .buildTextHandler(context, 'title'),
                         Padding(
                             padding: const EdgeInsets.only(bottom: 24),
                             child: CategoryPickerWidget()
@@ -143,7 +143,7 @@ class TaskPage {
                         ),
                         TextfiledHandlerWidget(
                                 initialNotes: edit ? '${task?['notes']}' : '')
-                            .buildNotes(context)
+                            .buildTextHandler(context, 'notes')
                       ],
                     ),
                   ),
