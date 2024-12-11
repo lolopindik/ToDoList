@@ -12,7 +12,7 @@ class TextfiledHandlerWidget {
   Widget buildTitle(BuildContext context) {
     final bloc = context.read<TextFieldHandlerBloc>();
 
-    if (initialTitle != null) {
+    if (initialTitle != '') {
       bloc.titleController.text = initialTitle!;
     }
 
@@ -40,7 +40,7 @@ class TextfiledHandlerWidget {
   Widget buildNotes(BuildContext context) {
     final bloc = context.read<TextFieldHandlerBloc>();
 
-    if (initialNotes != null) {
+    if (initialNotes != '') {
       bloc.notesController.text = initialNotes!;
     }
 
