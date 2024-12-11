@@ -12,7 +12,7 @@ class TextfiledHandlerWidget {
   Widget buildTitle(BuildContext context) {
     final bloc = context.read<TextFieldHandlerBloc>();
 
-    if (initialTitle != '') {
+    if (bloc.titleController.text.isEmpty && initialTitle != null) {
       bloc.titleController.text = initialTitle!;
     }
 
@@ -21,7 +21,7 @@ class TextfiledHandlerWidget {
         return TextField(
           controller: bloc.titleController,
           onChanged: (title) {
-            context.read<TextFieldHandlerBloc>().add(TitleEvent(title));
+            bloc.add(TitleEvent(title));
           },
           maxLength: 30,
           decoration: const InputDecoration(
@@ -40,7 +40,7 @@ class TextfiledHandlerWidget {
   Widget buildNotes(BuildContext context) {
     final bloc = context.read<TextFieldHandlerBloc>();
 
-    if (initialNotes != '') {
+    if (bloc.notesController.text.isEmpty && initialNotes != null) {
       bloc.notesController.text = initialNotes!;
     }
 
@@ -49,7 +49,7 @@ class TextfiledHandlerWidget {
         return TextFormField(
           controller: bloc.notesController,
           onChanged: (notes) {
-            context.read<TextFieldHandlerBloc>().add(NotesEvent(notes));
+            bloc.add(NotesEvent(notes));
           },
           maxLines: (MediaQuery.of(context).size.height * 0.008).toInt(),
           decoration: const InputDecoration(
