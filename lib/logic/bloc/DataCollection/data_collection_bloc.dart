@@ -27,13 +27,11 @@ class DataCollectionBloc
   Future<void> _onSaveData(
       SaveDataEvent event, Emitter<DataCollectionState> emit) async {
     try {
-      //* Собираем данные с блоков
       final id = ID().generateUuid();
 
       final category = (categorypickerCubit.state is CategorypickerSelected)
           ? (categorypickerCubit.state as CategorypickerSelected).categoryIndex
           : null;
-
       final selectedDate = (datepickerBloc.state is DatepickerSelected)
           ? (datepickerBloc.state as DatepickerSelected).selectedDate
           : null;
@@ -53,6 +51,8 @@ class DataCollectionBloc
           notes.isEmpty ||
           selectedTime == null) {
         emit(DataCollectionFailure(errorMessage: 'Some fields are empty'));
+        debugPrint(
+            'id: $id, category: $category, selectedDate: $selectedDate, title: $title, notes: $notes, selectedTime: $selectedTime');
         return;
       }
 
