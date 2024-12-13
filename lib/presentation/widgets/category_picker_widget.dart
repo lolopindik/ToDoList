@@ -10,56 +10,65 @@ class CategoryPickerWidget {
   CategoryPickerWidget({this.initialCategory});
 
   Widget buildCategoryPicker(BuildContext context) {
-    return BlocProvider(
-      create: (_) => CategorypickerCubit(initialCategory: initialCategory),
-      child: BlocBuilder<CategorypickerCubit, CategorypickerState>(
-        builder: (context, state) {
-          double categorySize = MediaQuery.of(context).size.height * 0.07;
-          double selectedCategorySize =
-              MediaQuery.of(context).size.height * 0.085;
+    return BlocBuilder<CategorypickerCubit, CategorypickerState>(
+      builder: (context, state) {
+        double categorySize = MediaQuery.of(context).size.height * 0.07;
+        double selectedCategorySize =
+            MediaQuery.of(context).size.height * 0.085;
 
-          int? selectedCategoryIndex = state is CategorypickerSelected
-              ? state.categoryIndex
-              : initialCategory;
+        int? selectedCategoryIndex = state is CategorypickerSelected
+            ? state.categoryIndex
+            : initialCategory;
 
-          List<Map<String, dynamic>> categories = [
-            {
-              'iconPath': 'lib/assets/icons/Category=Event.svg',
-              'index': 1,
-            },
-            {
-              'iconPath': 'lib/assets/icons/Category=Goal.svg',
-              'index': 2,
-            },
-            {
-              'iconPath': 'lib/assets/icons/Category=Task.svg',
-              'index': 3,
-            },
-          ];
+        List<Map<String, dynamic>> categories = [
+          {
+            'iconPath': 'lib/assets/icons/Category=Event.svg',
+            'index': 1,
+          },
+          {
+            'iconPath': 'lib/assets/icons/Category=Goal.svg',
+            'index': 2,
+          },
+          {
+            'iconPath': 'lib/assets/icons/Category=Task.svg',
+            'index': 3,
+          },
+        ];
 
-          return Row(
-            children: [
-              const Text(
-                'Category',
-                style: ToDoTextStyles.black16,
-              ),
-              const SizedBox(width: 24),
-              ...categories.map((category) {
-                bool isSelected = selectedCategoryIndex == category['index'];
-                return IconButton(
-                  onPressed: () => context
-                      .read<CategorypickerCubit>()
-                      .pickCategory(category['index']),
-                  icon: SvgPicture.asset(
-                    category['iconPath'],
-                    height: isSelected ? selectedCategorySize : categorySize,
-                  ),
-                );
-              }),
-            ],
-          );
-        },
-      ),
+        return Row(
+          children: [
+            const Text(
+              'Category',
+              style: ToDoTextStyles.black16,
+            ),
+            const SizedBox(width: 24),
+            ...categories.map((category) {
+              int categoryIndex = category['index'] as int;
+              bool isSelected = selectedCategoryIndex == categoryIndex;
+
+              return IconButton(
+                onPressed: () {
+                  final cubit = context.read<CategorypickerCubit>();
+                  cubit.pickCategory(categoryIndex);
+
+                  if (cubit.state is CategorypickerSelected) {
+                    final selectedCategory =
+                        (cubit.state as CategorypickerSelected).categoryIndex;
+                    debugPrint('Selected category: $selectedCategory');
+                  } else {
+                    debugPrint(
+                        'Current state is not CategorypickerSelected: ${cubit.state}');
+                  }
+                },
+                icon: SvgPicture.asset(
+                  category['iconPath'],
+                  height: isSelected ? selectedCategorySize : categorySize,
+                ),
+              );
+            }),
+          ],
+        );
+      },
     );
   }
 }

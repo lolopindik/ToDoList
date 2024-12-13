@@ -11,7 +11,11 @@ class CategorypickerCubit extends Cubit<CategorypickerState> {
             : CategorypickerInitial());
 
   void pickCategory(int index) {
-    _categoryIndex = index;
-    emit(CategorypickerSelected(_categoryIndex!));
+    if (index >= 1 && index <= 3) {
+      _categoryIndex = index;
+      emit(CategorypickerSelected(_categoryIndex!));
+    }
+    // ignore: avoid_print
+    print('CategorypickerCubit state: ${_categoryIndex}');
   }
 }
