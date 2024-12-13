@@ -3,6 +3,7 @@ import 'package:bloc_to_do/constants/preferences.dart';
 import 'package:bloc_to_do/logic/bloc/CompareTask/compare_task_bloc.dart';
 import 'package:bloc_to_do/presentation/pages/details_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -146,24 +147,103 @@ class DetailsBlocBuilderWidget extends DetailsPage {
                 child: FloatingActionButton(
                   backgroundColor: ToDoColors.mainColor,
                   onPressed: () async {
-                    try {
-                      final prefs = await SharedPreferences.getInstance();
-                      List<String> tasks =
-                          prefs.getStringList('collectedDataList') ?? [];
-                      tasks.removeWhere(
-                          (t) => t.contains('"id":"${task['id']}"'));
-                      await prefs.setStringList('collectedDataList', tasks);
-                      if (context.mounted) {
-                        Navigator.of(context)
-                            .pushNamedAndRemoveUntil('/home', (route) => false);
-                      }
-                    } catch (e) {
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('Не удалось удалить задачу')),
-                        );
-                      }
+                    //todo later add this to services
+                    if (Platform.isIOS) {
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (BuildContext context) => CupertinoAlertDialog(
+                          title: const Text('Удалить задачу'),
+                          content: const Text(
+                              'Вы уверены, что хотите удалить эту задачу?'),
+                          actions: <CupertinoDialogAction>[
+                            CupertinoDialogAction(
+                              isDefaultAction: true,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Отмена'),
+                            ),
+                            CupertinoDialogAction(
+                              isDestructiveAction: true,
+                              onPressed: () async {
+                                Navigator.pop(context);
+                                try {
+                                  final prefs =
+                                      await SharedPreferences.getInstance();
+                                  List<String> tasks = prefs
+                                          .getStringList('collectedDataList') ??
+                                      [];
+                                  tasks.removeWhere((t) =>
+                                      t.contains('"id":"${task['id']}"'));
+                                  await prefs.setStringList(
+                                      'collectedDataList', tasks);
+                                  if (context.mounted) {
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            '/home', (route) => false);
+                                  }
+                                } catch (e) {
+                                  if (context.mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              'Не удалось удалить задачу')),
+                                    );
+                                  }
+                                }
+                              },
+                              child: const Text('Удалить'),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Удалить задачу'),
+                          content: const Text(
+                              'Вы уверены, что хотите удалить эту задачу?'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Отмена'),
+                            ),
+                            TextButton(
+                              onPressed: () async {
+                                Navigator.pop(context);
+                                try {
+                                  final prefs =
+                                      await SharedPreferences.getInstance();
+                                  List<String> tasks = prefs
+                                          .getStringList('collectedDataList') ??
+                                      [];
+                                  tasks.removeWhere((t) =>
+                                      t.contains('"id":"${task['id']}"'));
+                                  await prefs.setStringList(
+                                      'collectedDataList', tasks);
+                                  if (context.mounted) {
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            '/home', (route) => false);
+                                  }
+                                } catch (e) {
+                                  if (context.mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              'Не удалось удалить задачу')),
+                                    );
+                                  }
+                                }
+                              },
+                              child: const Text('Удалить'),
+                            ),
+                          ],
+                        ),
+                      );
                     }
                   },
                   child: const Icon(
