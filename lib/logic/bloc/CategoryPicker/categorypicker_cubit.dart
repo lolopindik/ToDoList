@@ -15,7 +15,7 @@ class CategorypickerCubit extends Cubit<CategorypickerState> {
       _categoryIndex = index;
       emit(CategorypickerSelected(_categoryIndex!));
     }
-    // ignore: avoid_print
+    // ignore: avoid_print, unnecessary_brace_in_string_interps
     print('CategorypickerCubit state: ${_categoryIndex}');
   }
 }
