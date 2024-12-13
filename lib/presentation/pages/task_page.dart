@@ -116,8 +116,13 @@ class TaskPage {
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.45,
-                                    child: DatePickerWidget()
-                                        .buildDatePicker(context),
+                                    child: edit
+                                        ? DatePickerWidget(
+                                                initialDate:
+                                                    task?['selectedDate'])
+                                            .buildDatePicker(context)
+                                        : DatePickerWidget()
+                                            .buildDatePicker(context),
                                   ),
                                 ],
                               ),
@@ -131,10 +136,16 @@ class TaskPage {
                                         style: ToDoTextStyles.black16),
                                   ),
                                   SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.45,
-                                      child: TimePickerWidget()
-                                          .buildTimePicker(context)),
+                                    width: MediaQuery.of(context).size.width *
+                                        0.45,
+                                    child: edit
+                                        ? TimePickerWidget(
+                                                initialTime:
+                                                    task?['selectedTime'])
+                                            .buildTimePicker(context)
+                                        : TimePickerWidget()
+                                            .buildTimePicker(context),
+                                  ),
                                 ],
                               ),
                             ],

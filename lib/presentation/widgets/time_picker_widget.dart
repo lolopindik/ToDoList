@@ -4,10 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TimePickerWidget {
+  final String? initialTime;
+
+  TimePickerWidget({this.initialTime});
+
   Widget buildTimePicker(BuildContext context) {
     return BlocBuilder<TimepickerBloc, TimepickerState>(
       builder: (context, state) {
         final timeBloc = BlocProvider.of<TimepickerBloc>(context);
+
+        String selectedTime = state is TimepickerSelected
+            ? timeBloc.timeController.text
+            : initialTime ?? '';
+
+        if (timeBloc.timeController.text != selectedTime) {
+          timeBloc.timeController.text = selectedTime;
+        }
+
         return GestureDetector(
           onTap: () async {
             TimeOfDay? pickedTime = await showTimePicker(
@@ -15,9 +28,8 @@ class TimePickerWidget {
               initialTime: TimeOfDay.now(),
             );
             if (pickedTime != null) {
-              final formattedTime =
-                  // ignore: use_build_context_synchronously
-                  pickedTime.format(context);
+              // ignore: use_build_context_synchronously
+              final formattedTime = pickedTime.format(context);
               timeBloc.add(TimeSelectedEvent(pickedTime, formattedTime));
             }
           },
