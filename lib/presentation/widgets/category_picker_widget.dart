@@ -25,20 +25,14 @@ class CategoryPickerWidget {
           List<Map<String, dynamic>> categories = [
             {
               'iconPath': 'lib/assets/icons/Category=Event.svg',
-              'onPressed': () =>
-                  context.read<CategorypickerCubit>().categoryPickEvent(),
               'index': 1,
             },
             {
               'iconPath': 'lib/assets/icons/Category=Goal.svg',
-              'onPressed': () =>
-                  context.read<CategorypickerCubit>().categoryPickGoal(),
               'index': 2,
             },
             {
               'iconPath': 'lib/assets/icons/Category=Task.svg',
-              'onPressed': () =>
-                  context.read<CategorypickerCubit>().categoryPickTask(),
               'index': 3,
             },
           ];
@@ -53,7 +47,9 @@ class CategoryPickerWidget {
               ...categories.map((category) {
                 bool isSelected = selectedCategoryIndex == category['index'];
                 return IconButton(
-                  onPressed: category['onPressed'],
+                  onPressed: () => context
+                      .read<CategorypickerCubit>()
+                      .pickCategory(category['index']),
                   icon: SvgPicture.asset(
                     category['iconPath'],
                     height: isSelected ? selectedCategorySize : categorySize,
