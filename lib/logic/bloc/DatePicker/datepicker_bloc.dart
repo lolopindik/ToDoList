@@ -10,14 +10,25 @@ part 'datepicker_state.dart';
 class DatepickerBloc extends Bloc<DatepickerEvent, DatepickerState> {
   final TextEditingController dateController = TextEditingController();
 
-  DatepickerBloc() : super(DatepickerInitial()) {
+  DatepickerBloc({DateTime? initialDate})
+      : super(initialDate != null
+            ? DatepickerSelected(initialDate)
+            : DatepickerInitial()) {
+    if (initialDate != null) {
+      dateController.text = _formatDate(initialDate);
+    }
+
     on<DateSelectedEvent>(_onDateSelected);
   }
 
   void _onDateSelected(DateSelectedEvent event, Emitter<DatepickerState> emit) {
-    dateController.text = "${event.selectedDate.toLocal()}".split(' ')[0];
+    dateController.text = _formatDate(event.selectedDate);
     emit(DatepickerSelected(event.selectedDate));
-    print('dateController ${dateController.text}');
+    debugPrint('Date selected: ${dateController.text}');
+  }
+
+  String _formatDate(DateTime date) {
+    return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
   }
 
   @override

@@ -62,7 +62,7 @@ class DataCollectionBloc
         'title': title,
         'category': category,
         'notes': notes,
-        'selectedDate': selectedDate.toIso8601String(),
+        'selectedDate': selectedDate.toIso8601String().split('T')[0],
         'selectedTime': selectedTime.format(event.context),
       };
 
