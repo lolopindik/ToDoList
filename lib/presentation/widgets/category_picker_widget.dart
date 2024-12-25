@@ -20,6 +20,12 @@ class CategoryPickerWidget {
             ? state.categoryIndex
             : initialCategory;
 
+        final cubit = context.read<CategorypickerCubit>();
+
+        if (initialCategory != null) {
+          cubit.pickCategory(initialCategory!);
+        }
+
         List<Map<String, dynamic>> categories = [
           {
             'iconPath': 'lib/assets/icons/Category=Event.svg',

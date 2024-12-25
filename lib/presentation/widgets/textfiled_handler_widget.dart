@@ -17,10 +17,14 @@ class TextfiledHandlerWidget {
       if (type == 'title') {
         if (bloc.titleController.text.isEmpty) {
           bloc.titleController.text = initialTitle!;
+          //* Added event to update data in the bloc
+          bloc.add(TitleEvent(bloc.titleController.text));
         }
       } else if (type == 'notes') {
         if (bloc.notesController.text.isEmpty) {
           bloc.notesController.text = initialNotes!;
+          //* Added event to update data in the bloc
+          bloc.add(NotesEvent(bloc.notesController.text));
         }
       } else {
         bloc.titleController.text = errorMessage;

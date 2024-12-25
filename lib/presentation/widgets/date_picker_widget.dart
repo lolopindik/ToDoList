@@ -18,7 +18,9 @@ class DatePickerWidget {
             : initialDate ?? '';
 
         if (dateBloc.dateController.text != selectedDate) {
+          //* Added event to update data in the bloc
           dateBloc.dateController.text = selectedDate;
+          dateBloc.add(DateSelectedEvent(DateTime.parse(selectedDate)));
         }
 
         return GestureDetector(

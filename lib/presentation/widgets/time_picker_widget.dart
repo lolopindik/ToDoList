@@ -19,6 +19,8 @@ class TimePickerWidget {
 
         if (timeBloc.timeController.text != selectedTime) {
           timeBloc.timeController.text = selectedTime;
+          timeBloc.add(TimeSelectedEvent(
+              TimeOfDay.now(), TimeOfDay.now().format(context)));
         }
 
         return GestureDetector(
