@@ -36,8 +36,8 @@ class DataCollectionBloc
           ? (datepickerBloc.state as DatepickerSelected).selectedDate
           : null;
 
-      final title = textFieldHandlerBloc.titleController.text;
-      final notes = textFieldHandlerBloc.notesController.text;
+      final title = textFieldHandlerBloc.titleController.text.trim();
+      final notes = textFieldHandlerBloc.notesController.text.trim();
 
       final selectedTime = (timepickerBloc.state is TimepickerSelected)
           ? (timepickerBloc.state as TimepickerSelected).selectedTime
