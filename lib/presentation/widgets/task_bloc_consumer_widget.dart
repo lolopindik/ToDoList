@@ -25,7 +25,7 @@ class TaskConsumer {
               'Save',
               () {
                 context.read<DataCollectionBloc>().add(
-                      SaveDataEvent(context),
+                      SaveDataEvent(context, true),
                     );
               },
             );

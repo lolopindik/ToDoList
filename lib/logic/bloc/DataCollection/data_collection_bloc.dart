@@ -27,6 +27,10 @@ class DataCollectionBloc
   Future<void> _onSaveData(
       SaveDataEvent event, Emitter<DataCollectionState> emit) async {
     try {
+      (event.edit)
+          ? debugPrint('type is edit: true')
+          : debugPrint('type is edit: false');
+
       final id = ID().generateUuid();
 
       final category = (categorypickerCubit.state is CategorypickerSelected)
