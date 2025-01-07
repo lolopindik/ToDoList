@@ -10,6 +10,12 @@ class CategoryPickerWidget {
   CategoryPickerWidget({this.initialCategory});
 
   Widget buildCategoryPicker(BuildContext context) {
+    final cubit = context.read<CategorypickerCubit>();
+
+    if (initialCategory != null && cubit.state is CategorypickerInitial) {
+      cubit.pickCategory(initialCategory!);
+    }
+
     return BlocBuilder<CategorypickerCubit, CategorypickerState>(
       builder: (context, state) {
         double categorySize = MediaQuery.of(context).size.height * 0.07;
@@ -19,12 +25,6 @@ class CategoryPickerWidget {
         int? selectedCategoryIndex = state is CategorypickerSelected
             ? state.categoryIndex
             : initialCategory;
-
-        final cubit = context.read<CategorypickerCubit>();
-
-        if (initialCategory != null) {
-          cubit.pickCategory(initialCategory!);
-        }
 
         List<Map<String, dynamic>> categories = [
           {
@@ -54,7 +54,6 @@ class CategoryPickerWidget {
 
               return IconButton(
                 onPressed: () {
-                  final cubit = context.read<CategorypickerCubit>();
                   cubit.pickCategory(categoryIndex);
 
                   if (cubit.state is CategorypickerSelected) {
