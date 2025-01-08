@@ -5,6 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TaskConsumer {
+  bool type;
+  TaskConsumer(this.type);
+
   Widget buildTaskBlocConsumer(BuildContext context) {
     return BlocConsumer<DataCollectionBloc, DataCollectionState>(
       listener: (context, state) {
@@ -20,12 +23,13 @@ class TaskConsumer {
       builder: (context, state) {
         return BlocBuilder<DataCollectionBloc, DataCollectionState>(
           builder: (context, state) {
+            //* Add a ternary operator later with a different construct with true
             return CustomButton().buildBottombar(
               context,
               'Save',
               () {
                 context.read<DataCollectionBloc>().add(
-                      SaveDataEvent(context, true),
+                      SaveDataEvent(context, type),
                     );
               },
             );
