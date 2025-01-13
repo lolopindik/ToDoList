@@ -10,7 +10,7 @@ class EditTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: TaskConsumer(true).buildTaskBlocConsumer(context),
+      bottomNavigationBar: TaskConsumer(true, task: task).buildTaskBlocConsumer(context),
       body: TaskPage().buildTaskPage(context, true, task),
     );
   }
