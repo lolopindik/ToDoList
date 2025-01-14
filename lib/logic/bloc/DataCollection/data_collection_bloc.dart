@@ -31,6 +31,16 @@ class DataCollectionBloc
           ? debugPrint('type is edit: true')
           : debugPrint('type is edit: false');
 
+      (event.task) != null
+          ? debugPrint('Map in event: ${event.task}')
+          : debugPrint('Map is emt');
+
+      //todo The ability is working, but i will need to add deleting note func
+      // ignore: prefer_typing_uninitialized_variables
+      // final id;
+
+      // (event.edit) ? id = event.task!['id'] : id = ID().generateUuid();
+
       final id = ID().generateUuid();
 
       final category = (categorypickerCubit.state is CategorypickerSelected)

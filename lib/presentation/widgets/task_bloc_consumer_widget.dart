@@ -29,9 +29,13 @@ class TaskConsumer {
               context,
               'Save',
               () {
-                context.read<DataCollectionBloc>().add(
-                      SaveDataEvent(context, type),
-                    );
+                (type)
+                    ? context.read<DataCollectionBloc>().add(
+                          SaveDataEvent(context, type, task: task),
+                        )
+                    : context.read<DataCollectionBloc>().add(
+                          SaveDataEvent(context, type),
+                        );
               },
             );
           },
