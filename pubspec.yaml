@@ -28,8 +28,8 @@ dependencies:
 
 #* Logic
   uuid: ^4.5.1
-  intl: ^0.19.0
-  collection: ^1.19.0
+#  intl: ^0.19.0
+#  collection: ^1.19.0
 
 #* Storage
   shared_preferences: ^2.3.5
