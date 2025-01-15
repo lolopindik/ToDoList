@@ -2,7 +2,6 @@ import 'package:bloc_to_do/constants/preferences.dart';
 import 'package:bloc_to_do/presentation/animations/fade_animation.dart';
 import 'package:bloc_to_do/presentation/widgets/home_lists_widgets.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage {
