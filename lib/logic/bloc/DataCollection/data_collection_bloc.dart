@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'dart:convert';
 import 'package:bloc_to_do/logic/bloc/CategoryPicker/categorypicker_cubit.dart';
 import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
@@ -65,8 +67,18 @@ class DataCollectionBloc
           notes.isEmpty ||
           selectedTime == null) {
         emit(DataCollectionFailure(errorMessage: 'Some fields are empty'));
-        debugPrint(
-            'id: $id, category: $category, selectedDate: $selectedDate, title: $title, notes: $notes, selectedTime: $selectedTime');
+        return;
+      }
+
+      //* Проверка на соответсвие полей
+      if (event.edit &&
+          category == event.task!['category'] &&
+          selectedDate.toIso8601String().split('T')[0] ==
+              event.task!['selectedDate'] &&
+          title == event.task!['title'] &&
+          notes == event.task!['notes'] &&
+          selectedTime.format(event.context) == event.task!['selectedTime']) {
+        emit(DataCollectionFailure(errorMessage: 'There were no changes'));
         return;
       }
 
@@ -80,9 +92,11 @@ class DataCollectionBloc
         'selectedTime': selectedTime.format(event.context),
       };
 
+
       //* Преобразуем в json
       final String jsonData = json.encode(collectedData);
 
+      debugPrint('Correct Map: $collectedData');
       debugPrint('Task json: ${jsonData.toString()}');
 
       //* Сохраняем локально в SharedPreferences
