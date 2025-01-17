@@ -11,7 +11,10 @@ class TimepickerBloc extends Bloc<TimepickerEvent, TimepickerState> {
 
   TimepickerBloc() : super(TimepickerInitial()) {
     on<TimeSelectedEvent>((event, emit) {
-      timeController.text = event.formattedTime;
+      // Проверяем, изменилось ли время, и если да, обновляем контроллер
+      if (timeController.text != event.formattedTime) {
+        timeController.text = event.formattedTime;
+      }
       emit(TimepickerSelected(event.selectedTime));
       print('timeController: ${timeController.text}');
     });

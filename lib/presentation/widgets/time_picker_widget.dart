@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:bloc_to_do/constants/preferences.dart';
 import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
 import 'package:flutter/material.dart';
@@ -13,14 +15,22 @@ class TimePickerWidget {
       builder: (context, state) {
         final timeBloc = BlocProvider.of<TimepickerBloc>(context);
 
+        if (state is TimepickerInitial && initialTime != null) {
+          final initialParsedTime = TimeOfDay(
+            hour: int.parse(initialTime!.split(':')[0]),
+            minute: int.parse(initialTime!.split(':')[1]),
+          );
+          final formattedInitialTime = initialParsedTime.format(context);
+          timeBloc
+              .add(TimeSelectedEvent(initialParsedTime, formattedInitialTime));
+        }
+
         String selectedTime = state is TimepickerSelected
-            ? timeBloc.timeController.text
-            : initialTime ?? '';
+            ? state.selectedTime.format(context)
+            : timeBloc.timeController.text;
 
         if (timeBloc.timeController.text != selectedTime) {
           timeBloc.timeController.text = selectedTime;
-          timeBloc.add(TimeSelectedEvent(
-              TimeOfDay.now(), TimeOfDay.now().format(context)));
         }
 
         return GestureDetector(
@@ -30,7 +40,6 @@ class TimePickerWidget {
               initialTime: TimeOfDay.now(),
             );
             if (pickedTime != null) {
-              // ignore: use_build_context_synchronously
               final formattedTime = pickedTime.format(context);
               timeBloc.add(TimeSelectedEvent(pickedTime, formattedTime));
             }
