@@ -16,13 +16,18 @@ class TimePickerWidget {
         final timeBloc = BlocProvider.of<TimepickerBloc>(context);
 
         if (state is TimepickerInitial && initialTime != null) {
-          final initialParsedTime = TimeOfDay(
-            hour: int.parse(initialTime!.split(':')[0]),
-            minute: int.parse(initialTime!.split(':')[1]),
-          );
-          final formattedInitialTime = initialParsedTime.format(context);
-          timeBloc
-              .add(TimeSelectedEvent(initialParsedTime, formattedInitialTime));
+          try {
+            final cleanedTime = initialTime!.trim();
+            final timeParts = cleanedTime.split(':');
+            final hour = int.parse(timeParts[0]);
+            final minute = int.parse(timeParts[1].split(' ')[0]);
+            final initialParsedTime = TimeOfDay(hour: hour, minute: minute);
+            final formattedInitialTime = initialParsedTime.format(context);
+            timeBloc.add(
+                TimeSelectedEvent(initialParsedTime, formattedInitialTime));
+          } catch (e) {
+            debugPrint('Ошибка при парсинге initialTime: $e');
+          }
         }
 
         String selectedTime = state is TimepickerSelected
