@@ -14,11 +14,11 @@ class TaskConsumer {
       listener: (context, state) {
         if (state is DateCollectionSuccess) {
           SnackbarService()
-              .showSnackbar(context, 'Yeap!', 'Everything went well', true);
+              .showSnackbar(context, 'Yeap!', (type) ? 'Data has been changed' : 'Everything went well', true);
           Navigator.pushNamed(context, '/home');
         } else if (state is DataCollectionFailure) {
           SnackbarService().showSnackbar(
-              context, 'Oups!', "You haven't filled in all the details", false);
+              context, (type) ? 'Bruh!' : 'Oups!', (type) ? "There were no changes" : "You haven't filled in all the details", false);
         }
       },
       builder: (context, state) {
