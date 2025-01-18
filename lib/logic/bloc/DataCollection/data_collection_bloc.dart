@@ -1,10 +1,11 @@
-// ignore_for_file: unrelated_type_equality_checks
+// ignore_for_file: unrelated_type_equality_checks, use_build_context_synchronously
 
 import 'dart:convert';
 import 'package:bloc_to_do/logic/bloc/CategoryPicker/categorypicker_cubit.dart';
 import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TextFieldHandler/text_field_handler_bloc.dart';
 import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
+import 'package:bloc_to_do/logic/funcs/collected_tasks.dart';
 import 'package:bloc_to_do/logic/funcs/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,12 +38,6 @@ class DataCollectionBloc
           ? debugPrint('Map in event: ${event.task}')
           : debugPrint('Map is emt');
 
-      //todo The ability is working, but i will need to add deleting note func
-      // ignore: prefer_typing_uninitialized_variables
-      // final id;
-
-      // (event.edit) ? id = event.task!['id'] : id = ID().generateUuid();
-
       final id = ID().generateUuid();
 
       final category = (categorypickerCubit.state is CategorypickerSelected)
@@ -59,7 +54,6 @@ class DataCollectionBloc
           ? (timepickerBloc.state as TimepickerSelected).selectedTime
           : null;
 
-      //* Проверяем заполненность полей
       if (id.isEmpty ||
           category == null ||
           selectedDate == null ||
@@ -70,7 +64,6 @@ class DataCollectionBloc
         return;
       }
 
-      //* Проверка на соответсвие полей
       if (event.edit &&
           category == event.task!['category'] &&
           selectedDate.toIso8601String().split('T')[0] ==
@@ -92,19 +85,19 @@ class DataCollectionBloc
         'selectedTime': selectedTime.format(event.context),
       };
 
-
-      //* Преобразуем в json
       final String jsonData = json.encode(collectedData);
 
       debugPrint('Correct Map: $collectedData');
       debugPrint('Task json: ${jsonData.toString()}');
 
-      //* Сохраняем локально в SharedPreferences
       final prefs = await SharedPreferences.getInstance();
       final existingData = prefs.getStringList('collectedDataList') ?? [];
       existingData.add(jsonData);
       await prefs.setStringList('collectedDataList', existingData);
-
+      (event.edit && event.task != null)
+      //! This crutch is terrible, but i can't find another way
+          ? CollectedTasks().deleteTask(event.context, event.task as Map<String, dynamic>)
+          : debugPrint('Data saved succe');
       emit(DateCollectionSuccess());
     } catch (e) {
       emit(DataCollectionFailure(errorMessage: e.toString()));
