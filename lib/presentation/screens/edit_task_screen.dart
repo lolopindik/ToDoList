@@ -3,7 +3,7 @@ import 'package:bloc_to_do/presentation/pages/task_page.dart';
 import 'package:bloc_to_do/presentation/widgets/task_bloc_consumer_widget.dart';
 
 class EditTask extends StatelessWidget {
-  final Map task;
+  final Map<String, dynamic> task;
 
   const EditTask({super.key, required this.task});
 

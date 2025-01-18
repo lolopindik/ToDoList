@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TaskConsumer {
   bool type;
-  Map? task;
+  Map<String, dynamic>? task;
   TaskConsumer(this.type, {this.task});
 
   Widget buildTaskBlocConsumer(BuildContext context) {

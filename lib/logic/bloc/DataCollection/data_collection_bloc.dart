@@ -95,9 +95,8 @@ class DataCollectionBloc
       existingData.add(jsonData);
       await prefs.setStringList('collectedDataList', existingData);
       (event.edit && event.task != null)
-      //! This crutch is terrible, but i can't find another way
-          ? CollectedTasks().deleteTask(event.context, event.task as Map<String, dynamic>)
-          : debugPrint('Data saved succe');
+          ? CollectedTasks().deleteTask(event.context, event.task!)
+          : debugPrint('Data saved succes');
       emit(DateCollectionSuccess());
     } catch (e) {
       emit(DataCollectionFailure(errorMessage: e.toString()));
