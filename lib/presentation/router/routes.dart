@@ -25,7 +25,7 @@ class AppRouter {
                     BlocProvider(
                         create: (context) =>
                             ComapreDataBloc(GetJson())..fetchData()),
-                    BlocProvider(create: (context) => CheckBoxBloc())
+                    BlocProvider(create: (context) => CheckBoxBloc(ComapreDataBloc(GetJson())))
                   ],
                   child: const HomeScreen(),
                 ));
@@ -90,7 +90,7 @@ class AppRouter {
                     BlocProvider(
                         create: (context) =>
                             ComapreDataBloc(GetJson())..fetchData()),
-                    BlocProvider(create: (context) => CheckBoxBloc())
+                    BlocProvider(create: (context) => CheckBoxBloc(ComapreDataBloc(GetJson())))
                   ],
                   child: const HomeScreen(),
                 ));

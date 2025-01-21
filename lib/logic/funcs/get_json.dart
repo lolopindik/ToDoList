@@ -29,4 +29,13 @@ class GetJson {
       }
     }
   }
+
+  Future<void> saveCollectedData(List<Map<String, dynamic>> tasks) async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonDataList = tasks.map((task) => json.encode(task)).toList();
+    await prefs.setStringList('collectedDataList', jsonDataList);
+
+    final savedData = prefs.getStringList('collectedDataList');
+    print('Saved tasks: $savedData');
+  }
 }

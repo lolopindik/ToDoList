@@ -75,7 +75,6 @@ class DataCollectionBloc
         return;
       }
 
-      //* Создаем массив с собранными данными
       final Map<String, dynamic> collectedData = {
         'id': id,
         'title': title,
@@ -83,6 +82,7 @@ class DataCollectionBloc
         'notes': notes,
         'selectedDate': selectedDate.toIso8601String().split('T')[0],
         'selectedTime': selectedTime.format(event.context),
+        'isCompleted': false,
       };
 
       final String jsonData = json.encode(collectedData);

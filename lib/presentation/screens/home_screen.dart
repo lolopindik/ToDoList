@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ToDoColors.mainColor,
+        backgroundColor: ToDoColors.secondaryColor,
         bottomNavigationBar: CustomButton().buildBottombar(
           context,
           'Add new Task',

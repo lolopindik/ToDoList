@@ -8,7 +8,14 @@ class ComapreDataLoading extends ComapreDataState {}
 
 class ComapreDataLoaded extends ComapreDataState {
   final List<Map<String, dynamic>> taskList;
-  ComapreDataLoaded({required this.taskList});
+  final List<Map<String, dynamic>> activeTasks;
+  final List<Map<String, dynamic>> completedTasks;
+
+  ComapreDataLoaded({
+    required this.taskList,
+    required this.activeTasks,
+    required this.completedTasks,
+  });
 }
 
 class ComapreDataFailure extends ComapreDataState {
