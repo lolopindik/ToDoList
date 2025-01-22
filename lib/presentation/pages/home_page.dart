@@ -14,9 +14,6 @@ class HomePage {
       future: SharedPreferences.getInstance(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final tasks = snapshot.data!.getStringList('collectedDataList') ?? [];
-          final hasTasks = tasks.isNotEmpty;
-
           return Stack(
             children: [
               Column(
@@ -85,39 +82,21 @@ class HomePage {
 
                               return Column(
                                 children: [
-                                  if (hasTasks) ...[
-                                    ListBuilder()
-                                        .buildTopList(context, activeTasks),
-                                    const Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 24),
-                                        child: Text(
-                                          'Completed',
-                                          style: ToDoTextStyles.black16,
-                                        ),
+                                  ListBuilder()
+                                      .buildTopList(context, activeTasks),
+                                  const Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 24),
+                                      child: Text(
+                                        'Completed',
+                                        style: ToDoTextStyles.black16,
                                       ),
                                     ),
-                                    ListBuilder().buildBottomList(
-                                        context, completedTasks),
-                                  ] else ...[
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.7,
-                                      decoration: BoxDecoration(
-                                          color: ToDoColors.mainColor,
-                                          borderRadius:
-                                              BorderRadius.circular(40)),
-                                      child: Center(
-                                        child: Text(
-                                          'There are no tasks 😊',
-                                          style: ToDoTextStyles.black24,
-                                        ),
-                                      ),
-                                    ),
-                                  ]
+                                  ),
+                                  ListBuilder()
+                                      .buildBottomList(context, completedTasks),
                                 ],
                               );
                             }

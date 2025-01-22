@@ -4,6 +4,7 @@ class ToDoColors {
   static const Color mainColor = Color.fromARGB(255, 241, 245, 249);
   static const Color secondaryColor = Color.fromARGB(255, 219, 236, 246);
   static const Color seedColor = Color.fromARGB(255, 74, 55, 128);
+  static const Color anotherColor = Color.fromARGB(100, 241, 245, 249);
 }
 
 class ToDoTextStyles {

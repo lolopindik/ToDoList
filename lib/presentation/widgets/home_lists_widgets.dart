@@ -140,32 +140,39 @@ class ListBuilder {
                           border: Border(
                               top: BorderSide(
                                   width: 1, color: ToDoColors.secondaryColor))),
-                      child: Row(
-                        children: [
-                          CustomIcons().buildIcon(context, task['category'],
-                              MediaQuery.of(context).size.height * 0.06),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.03,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                child: Text(
-                                  task['title'],
-                                  style: ToDoTextStyles.black16,
-                                  overflow: TextOverflow.ellipsis,
+                      child: Container(
+                        color: ToDoColors.anotherColor,
+                        child: Row(
+                          children: [
+                            CustomIcons().buildIcon(context, task['category'],
+                                MediaQuery.of(context).size.height * 0.06),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.03,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.5,
+                                  child: Text(
+                                    task['title'],
+                                    style: ToDoTextStyles.black16.copyWith(
+                                    overflow: TextOverflow.ellipsis,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                task['selectedTime'],
-                                style: ToDoTextStyles.grey14,
-                              ),
-                            ],
-                          ),
-                        ],
+                                Text(
+                                  task['selectedTime'],
+                                  style: ToDoTextStyles.black16.copyWith(
+                                    decoration: TextDecoration.lineThrough, 
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
