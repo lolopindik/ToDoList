@@ -14,7 +14,8 @@ class DetailsScreen extends StatelessWidget {
       backgroundColor: ToDoColors.mainColor,
       bottomNavigationBar: BlocBuilder<CompareTaskBloc, CompareTaskState>(
         builder: (context, state) {
-          if (state is CompareTaskSuccess) {
+          if (state is CompareTaskSuccess &&
+              state.task['isCompleted'] == false) {
             final task = state.task;
             return CustomButton().buildBottombar(
               context,
@@ -24,7 +25,7 @@ class DetailsScreen extends StatelessWidget {
               },
             );
           }
-          return Container();
+          return SizedBox();
         },
       ),
       body: DetailsPage().buildDetailsPage(context),

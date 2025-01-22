@@ -56,7 +56,8 @@ class HomePage {
                           style: ToDoTextStyles.white16,
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.025),
                       FadeAnimation().createAnimation(
                         context,
                         const Text(
@@ -64,7 +65,8 @@ class HomePage {
                           style: ToDoTextStyles.white30,
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
                       BlocListener<CheckBoxBloc, CheckBoxState>(
                         listener: (context, checkboxState) {
                           if (checkboxState is CheckBoxIsChecked) {
@@ -74,27 +76,48 @@ class HomePage {
                         child: BlocBuilder<ComapreDataBloc, ComapreDataState>(
                           builder: (context, state) {
                             if (state is ComapreDataLoading) {
-                              return const Center(child: CupertinoActivityIndicator(radius: 20));
+                              return const Center(
+                                  child:
+                                      CupertinoActivityIndicator(radius: 20));
                             } else if (state is ComapreDataLoaded) {
                               final activeTasks = state.activeTasks;
                               final completedTasks = state.completedTasks;
 
                               return Column(
                                 children: [
-                                  ListBuilder().buildTopList(context, activeTasks),
                                   if (hasTasks) ...[
+                                    ListBuilder()
+                                        .buildTopList(context, activeTasks),
                                     const Align(
                                       alignment: Alignment.topLeft,
                                       child: Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 24),
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 24),
                                         child: Text(
                                           'Completed',
                                           style: ToDoTextStyles.black16,
                                         ),
                                       ),
                                     ),
-                                    ListBuilder().buildBottomList(context, completedTasks),
-                                  ],
+                                    ListBuilder().buildBottomList(
+                                        context, completedTasks),
+                                  ] else ...[
+                                    Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.7,
+                                      decoration: BoxDecoration(
+                                          color: ToDoColors.mainColor,
+                                          borderRadius:
+                                              BorderRadius.circular(40)),
+                                      child: Center(
+                                        child: Text(
+                                          'There are no tasks 😊',
+                                          style: ToDoTextStyles.black24,
+                                        ),
+                                      ),
+                                    ),
+                                  ]
                                 ],
                               );
                             }
