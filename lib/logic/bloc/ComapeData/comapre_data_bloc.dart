@@ -11,15 +11,18 @@ class ComapreDataBloc extends Bloc<ComapreDataEvent, ComapreDataState> {
     on<FetchDataEvent>(_onFetchData);
   }
 
-  Future<void> _onFetchData(FetchDataEvent event, Emitter<ComapreDataState> emit) async {
+  Future<void> _onFetchData(
+      FetchDataEvent event, Emitter<ComapreDataState> emit) async {
     emit(ComapreDataLoading());
 
     try {
       final tasks = await getJson.getCollectedData();
 
       // Фильтрация задач на основе состояния isCompleted
-      final activeTasks = tasks.where((task) => task['isCompleted'] == false).toList();
-      final completedTasks = tasks.where((task) => task['isCompleted'] == true).toList();
+      final activeTasks =
+          tasks.where((task) => task['isCompleted'] == false).toList();
+      final completedTasks =
+          tasks.where((task) => task['isCompleted'] == true).toList();
 
       emit(ComapreDataLoaded(
         taskList: tasks,

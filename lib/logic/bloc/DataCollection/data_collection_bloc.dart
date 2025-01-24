@@ -29,6 +29,14 @@ class DataCollectionBloc
   Future<void> _onSaveData(
       SaveDataEvent event, Emitter<DataCollectionState> emit) async {
     try {
+      (event.edit)
+          ? debugPrint('type is edit: true')
+          : debugPrint('type is edit: false');
+
+      (event.task) != null
+          ? debugPrint('Map in event: \${event.task}')
+          : debugPrint('Map is emt');
+
       final id = ID().generateUuid();
 
       final category = (categorypickerCubit.state is CategorypickerSelected)
@@ -65,19 +73,28 @@ class DataCollectionBloc
         'notes': notes,
         'selectedDate': selectedDate.toIso8601String().split('T')[0],
         'selectedTime': formattedTime,
-        'isCompleted': false,
+        'isCompleted': false
       };
-
-      final String jsonData = json.encode(collectedData);
 
       final prefs = await SharedPreferences.getInstance();
       final existingData = prefs.getStringList('collectedDataList') ?? [];
-      existingData.add(jsonData);
-      await prefs.setStringList('collectedDataList', existingData);
+
+      if (event.edit) {
+        final updatedData = existingData.map((task) {
+          final taskMap = json.decode(task);
+          if (taskMap['id'] == id) {
+            return json.encode(collectedData);
+          }
+          return task;
+        }).toList();
+        await prefs.setStringList('collectedDataList', updatedData);
+      } else {
+        existingData.add(json.encode(collectedData));
+        await prefs.setStringList('collectedDataList', existingData);
+      }
 
       final notificationService = NotificationService();
       final taskId = id.hashCode;
-
       final tzDateTime = tz.TZDateTime.local(
         selectedDate.year,
         selectedDate.month,
@@ -86,10 +103,13 @@ class DataCollectionBloc
         selectedTime.minute,
       );
 
+      if (event.edit) {
+        await notificationService.cancelNotification(taskId);
+      }
       await notificationService.scheduleNotification(
         taskId,
-        'Напоминание',
-        'Пора выполнить задачу: $title',
+        title,
+        notes,
         tzDateTime,
       );
 
