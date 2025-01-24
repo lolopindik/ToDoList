@@ -1,7 +1,6 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -11,9 +10,7 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        // Flag to enable support for the new language APIs
-        coreLibraryDesugaringEnabled true // This is correct here
-        // Sets Java compatibility to Java 8
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -38,7 +35,6 @@ android {
     }
 
     dependencies {
-        // Ensure this is outside buildTypes and under dependencies
         coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
     }
 }

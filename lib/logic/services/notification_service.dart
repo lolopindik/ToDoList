@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:clock/clock.dart';
 
 class NotificationService {
   static final NotificationService _notificationService =
@@ -20,7 +21,7 @@ class NotificationService {
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
     final DarwinInitializationSettings initializationSettingsIOS =
-        DarwinInitializationSettings(
+        const DarwinInitializationSettings(
       requestSoundPermission: true,
       requestBadgePermission: true,
       requestAlertPermission: true,
@@ -48,27 +49,53 @@ class NotificationService {
     String body,
     DateTime scheduledDate,
   ) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      tz.TZDateTime.from(scheduledDate, tz.local),
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          'todo_notifications',
-          'ToDo Notifications',
-          importance: Importance.max,
-          priority: Priority.high,
+    try {
+      final tzDateTime = tz.TZDateTime.from(scheduledDate, tz.local);
+      validateDateIsInTheFuture(tzDateTime, null);
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        id,
+        title,
+        body,
+        tzDateTime,
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'todo_notifications',
+            'ToDo Notifications',
+            importance: Importance.max,
+            priority: Priority.high,
+          ),
+          iOS: DarwinNotificationDetails(),
         ),
-        iOS: DarwinNotificationDetails(),
-      ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
+    } catch (e) {
+      debugPrint('Error scheduling notification: $e');
+    }
   }
 
   Future<void> cancelNotification(int id) async {
-    await flutterLocalNotificationsPlugin.cancel(id);
+    try {
+      await flutterLocalNotificationsPlugin.cancel(id);
+    } catch (e) {
+      debugPrint('Error canceling notification: $e');
+    }
+  }
+
+  void validateDateIsInTheFuture(
+    tz.TZDateTime scheduledDate,
+    DateTimeComponents? matchDateTimeComponents,
+  ) {
+    if (matchDateTimeComponents != null) {
+      return;
+    }
+    if (scheduledDate.isBefore(clock.now())) {
+      throw ArgumentError.value(
+        scheduledDate,
+        'scheduledDate',
+        'Must be a date in the future',
+      );
+    }
   }
 }
