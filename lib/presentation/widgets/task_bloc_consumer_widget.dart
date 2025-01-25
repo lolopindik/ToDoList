@@ -13,12 +13,17 @@ class TaskConsumer {
     return BlocConsumer<DataCollectionBloc, DataCollectionState>(
       listener: (context, state) {
         if (state is DateCollectionSuccess) {
-          SnackbarService()
-              .showSnackbar(context, 'Yeap!', (type) ? 'Data has been changed' : 'Everything went well', true);
-          Navigator.pushNamed(context, '/home');
+          SnackbarService().showSnackbar(context, 'Yeap!',
+              (type) ? 'Data has been changed' : 'Everything went well', true);
+          Navigator.pushReplacementNamed(context, '/home');
         } else if (state is DataCollectionFailure) {
           SnackbarService().showSnackbar(
-              context, (type) ? 'Bruh!' : 'Oups!', (type) ? "There were no changes" : "You haven't filled in all the details", false);
+              context,
+              (type) ? 'Bruh!' : 'Oups!',
+              (type)
+                  ? "There were no changes"
+                  : "You haven't filled in all the details",
+              false);
         }
       },
       builder: (context, state) {
