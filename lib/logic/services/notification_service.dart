@@ -57,25 +57,29 @@ class NotificationService {
         title,
         body,
         tzDateTime,
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
+        NotificationDetails(
+          android: const AndroidNotificationDetails(
             'todo_notifications',
             'ToDo Notifications',
             importance: Importance.max,
             priority: Priority.high,
           ),
-          iOS: DarwinNotificationDetails(
+          iOS: const DarwinNotificationDetails(
             presentAlert: true,
             presentBadge: true,
             presentSound: true,
+            sound: 'default',
+            badgeNumber: 1,
+            interruptionLevel: InterruptionLevel.active,
           ),
         ),
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
       );
+      debugPrint('Уведомление запланировано на: $scheduledDate');
     } catch (e) {
-      debugPrint('Error scheduling notification: $e');
+      debugPrint('Ошибка планирования уведомления: $e');
     }
   }
 
