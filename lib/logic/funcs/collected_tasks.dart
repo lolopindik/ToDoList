@@ -1,3 +1,4 @@
+import 'package:bloc_to_do/logic/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -6,6 +7,7 @@ class CollectedTasks {
       BuildContext context, Map<String, dynamic> task) async {
     Navigator.pop(context);
     try {
+      NotificationService().cancelNotification(task['id'].hashCode);
       final prefs = await SharedPreferences.getInstance();
       List<String> tasks = prefs.getStringList('collectedDataList') ?? [];
       tasks.removeWhere((t) => t.contains('"id":"${task['id']}"'));
