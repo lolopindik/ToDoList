@@ -11,21 +11,22 @@ import UserNotifications
   ) -> Bool {
     // Настройка уведомлений для iOS 10 и выше
     if #available(iOS 10.0, *) {
-      UNUserNotificationCenter.current().delegate = self // Делегат остается здесь
+      UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
       
       let center = UNUserNotificationCenter.current()
-      center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+      center.requestAuthorization(options: [.alert, .sound, .badge, .provisional]) { granted, error in
+        if let error = error {
+          print("Error requesting notifications permission: \(error)")
+          return
+        }
+        
         if granted {
+          print("Notification permission granted")
           DispatchQueue.main.async {
             application.registerForRemoteNotifications()
           }
-          print("Notification permission granted")
         } else {
           print("Notification permission denied")
-        }
-        
-        if let error = error {
-          print("Error requesting notification permission: \(error)")
         }
       }
     }
@@ -49,6 +50,15 @@ import UserNotifications
     }
 
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
+
+  // Добавляем обработку уведомлений в фоновом режиме
+  override func application(
+    _ application: UIApplication,
+    didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+    fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
+  ) {
+    completionHandler(.newData)
   }
 
   // Обработка уведомлений в foreground режиме

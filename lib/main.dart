@@ -4,9 +4,11 @@ import 'package:bloc_to_do/presentation/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
   await NotificationService().init();
 
   SystemChrome.setPreferredOrientations([
