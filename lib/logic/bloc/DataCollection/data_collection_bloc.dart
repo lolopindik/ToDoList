@@ -37,7 +37,7 @@ class DataCollectionBloc
           ? debugPrint('Map in event: \${event.task}')
           : debugPrint('Map is emt');
 
-      final id = ID().generateUuid();
+      final id = event.edit ? event.task!['id'] : ID().generateUuid();
 
       final category = (categorypickerCubit.state is CategorypickerSelected)
           ? (categorypickerCubit.state as CategorypickerSelected).categoryIndex
