@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/timezone.dart' as tz; // Import timezone
 import 'package:timezone/data/latest.dart' as tz;
-import 'package:clock/clock.dart';
 
 class NotificationService {
   static final NotificationService _notificationService =
@@ -39,7 +38,6 @@ class NotificationService {
         debugPrint('Notification clicked: ${response.payload}');
       },
     );
-
     tz.initializeTimeZones();
   }
 
@@ -50,21 +48,24 @@ class NotificationService {
     DateTime scheduledDate,
   ) async {
     try {
-      final tzDateTime = tz.TZDateTime.from(scheduledDate, tz.local);
-      validateDateIsInTheFuture(tzDateTime);
+      validateDateIsInTheFuture(scheduledDate);
+
+      final tz.TZDateTime tzScheduledDate =
+          tz.TZDateTime.from(scheduledDate, tz.local);
+
       await flutterLocalNotificationsPlugin.zonedSchedule(
         id,
         title,
         body,
-        tzDateTime,
-        NotificationDetails(
-          android: const AndroidNotificationDetails(
+        tzScheduledDate,
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
             'todo_notifications',
             'ToDo Notifications',
             importance: Importance.max,
             priority: Priority.high,
           ),
-          iOS: const DarwinNotificationDetails(
+          iOS: DarwinNotificationDetails(
             presentAlert: true,
             presentBadge: true,
             presentSound: true,
@@ -91,8 +92,8 @@ class NotificationService {
     }
   }
 
-  void validateDateIsInTheFuture(tz.TZDateTime scheduledDate) {
-    if (scheduledDate.isBefore(clock.now())) {
+  void validateDateIsInTheFuture(DateTime scheduledDate) {
+    if (scheduledDate.isBefore(DateTime.now())) {
       throw ArgumentError.value(
         scheduledDate,
         'scheduledDate',

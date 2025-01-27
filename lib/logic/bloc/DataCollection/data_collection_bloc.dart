@@ -8,7 +8,6 @@ import 'package:bloc_to_do/logic/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timezone/timezone.dart' as tz;
 
 part 'data_collection_event.dart';
 part 'date_collection_state.dart';
@@ -96,9 +95,7 @@ class DataCollectionBloc
 
       final notificationService = NotificationService();
       final taskId = id.hashCode;
-      final tzLocation = tz.getLocation('Europe/Moscow');
-      final tzDateTime = tz.TZDateTime(
-        tzLocation,
+      final scheduledDateTime = DateTime(
         selectedDate.year,
         selectedDate.month,
         selectedDate.day,
@@ -113,7 +110,7 @@ class DataCollectionBloc
         taskId,
         title,
         notes,
-        tzDateTime,
+        scheduledDateTime,
       );
 
       emit(DateCollectionSuccess());
