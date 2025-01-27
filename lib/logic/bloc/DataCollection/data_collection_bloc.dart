@@ -29,26 +29,19 @@ class DataCollectionBloc
   Future<void> _onSaveData(
       SaveDataEvent event, Emitter<DataCollectionState> emit) async {
     try {
-      (event.edit)
-          ? debugPrint('type is edit: true')
-          : debugPrint('type is edit: false');
-
-      (event.task) != null
-          ? debugPrint('Map in event: \${event.task}')
-          : debugPrint('Map is emt');
+      debugPrint(event.edit ? 'Edit mode: true' : 'Edit mode: false');
+      debugPrint(
+          event.task != null ? 'Event task: ${event.task}' : 'Task is empty');
 
       final id = event.edit ? event.task!['id'] : ID().generateUuid();
-
       final category = (categorypickerCubit.state is CategorypickerSelected)
           ? (categorypickerCubit.state as CategorypickerSelected).categoryIndex
           : null;
       final selectedDate = (datepickerBloc.state is DatepickerSelected)
           ? (datepickerBloc.state as DatepickerSelected).selectedDate
           : null;
-
       final title = textFieldHandlerBloc.titleController.text.trim();
       final notes = textFieldHandlerBloc.notesController.text.trim();
-
       final selectedTime = (timepickerBloc.state is TimepickerSelected)
           ? (timepickerBloc.state as TimepickerSelected).selectedTime
           : null;
@@ -59,7 +52,9 @@ class DataCollectionBloc
           title.isEmpty ||
           notes.isEmpty ||
           selectedTime == null) {
-        emit(DataCollectionFailure(errorMessage: 'Some fields are empty'));
+        emit(DataCollectionFailure(
+            errorMessage:
+                'Some fields are empty. Check Title, Notes, Date, and Time.'));
         return;
       }
 
@@ -73,19 +68,25 @@ class DataCollectionBloc
         'notes': notes,
         'selectedDate': selectedDate.toIso8601String().split('T')[0],
         'selectedTime': formattedTime,
-        'isCompleted': false
+        'isCompleted': false,
       };
 
       final prefs = await SharedPreferences.getInstance();
       final existingData = prefs.getStringList('collectedDataList') ?? [];
 
+      try {
+        for (final task in existingData) {
+          json.decode(task);
+        }
+      } catch (e) {
+        debugPrint('Invalid data in SharedPreferences: $e');
+        await prefs.remove('collectedDataList');
+      }
+
       if (event.edit) {
         final updatedData = existingData.map((task) {
           final taskMap = json.decode(task);
-          if (taskMap['id'] == id) {
-            return json.encode(collectedData);
-          }
-          return task;
+          return taskMap['id'] == id ? json.encode(collectedData) : task;
         }).toList();
         await prefs.setStringList('collectedDataList', updatedData);
       } else {
@@ -95,7 +96,9 @@ class DataCollectionBloc
 
       final notificationService = NotificationService();
       final taskId = id.hashCode;
-      final tzDateTime = tz.TZDateTime.local(
+      final tzLocation = tz.getLocation('Europe/Moscow');
+      final tzDateTime = tz.TZDateTime(
+        tzLocation,
         selectedDate.year,
         selectedDate.month,
         selectedDate.day,

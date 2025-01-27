@@ -20,8 +20,8 @@ class NotificationService {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    final DarwinInitializationSettings initializationSettingsIOS =
-        const DarwinInitializationSettings(
+    const DarwinInitializationSettings initializationSettingsIOS =
+        DarwinInitializationSettings(
       requestSoundPermission: true,
       requestBadgePermission: true,
       requestAlertPermission: true,
@@ -51,7 +51,7 @@ class NotificationService {
   ) async {
     try {
       final tzDateTime = tz.TZDateTime.from(scheduledDate, tz.local);
-      validateDateIsInTheFuture(tzDateTime, null);
+      validateDateIsInTheFuture(tzDateTime);
       await flutterLocalNotificationsPlugin.zonedSchedule(
         id,
         title,
@@ -77,9 +77,9 @@ class NotificationService {
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
       );
-      debugPrint('Уведомление запланировано на: $scheduledDate');
+      debugPrint('Notification scheduled for: $scheduledDate');
     } catch (e) {
-      debugPrint('Ошибка планирования уведомления: $e');
+      debugPrint('Error scheduling notification: $e');
     }
   }
 
@@ -91,13 +91,7 @@ class NotificationService {
     }
   }
 
-  void validateDateIsInTheFuture(
-    tz.TZDateTime scheduledDate,
-    DateTimeComponents? matchDateTimeComponents,
-  ) {
-    if (matchDateTimeComponents != null) {
-      return;
-    }
+  void validateDateIsInTheFuture(tz.TZDateTime scheduledDate) {
     if (scheduledDate.isBefore(clock.now())) {
       throw ArgumentError.value(
         scheduledDate,
