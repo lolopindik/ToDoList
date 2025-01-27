@@ -19,16 +19,15 @@ class AppRouter {
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case '/home':
-        return MaterialPageRoute(
-            builder: (context) => MultiBlocProvider(
-                  providers: [
-                    BlocProvider(
-                        create: (context) =>
-                            ComapreDataBloc(GetJson())..fetchData()),
-                    BlocProvider(create: (context) => CheckBoxBloc(ComapreDataBloc(GetJson())))
-                  ],
-                  child: const HomeScreen(),
-                ));
+        return TransitionAnimation.createRoute(MultiBlocProvider(
+          providers: [
+            BlocProvider(
+                create: (context) => ComapreDataBloc(GetJson())..fetchData()),
+            BlocProvider(
+                create: (context) => CheckBoxBloc(ComapreDataBloc(GetJson())))
+          ],
+          child: const HomeScreen(),
+        ));
       case '/details':
         final args = routeSettings.arguments as Map<String, dynamic>;
         final String taskId = args['taskId'];
@@ -84,16 +83,15 @@ class AppRouter {
           child: EditTask(task: task),
         ));
       default:
-        return MaterialPageRoute(
-            builder: (context) => MultiBlocProvider(
-                  providers: [
-                    BlocProvider(
-                        create: (context) =>
-                            ComapreDataBloc(GetJson())..fetchData()),
-                    BlocProvider(create: (context) => CheckBoxBloc(ComapreDataBloc(GetJson())))
-                  ],
-                  child: const HomeScreen(),
-                ));
+        return TransitionAnimation.createRoute(MultiBlocProvider(
+          providers: [
+            BlocProvider(
+                create: (context) => ComapreDataBloc(GetJson())..fetchData()),
+            BlocProvider(
+                create: (context) => CheckBoxBloc(ComapreDataBloc(GetJson())))
+          ],
+          child: const HomeScreen(),
+        ));
     }
   }
 }

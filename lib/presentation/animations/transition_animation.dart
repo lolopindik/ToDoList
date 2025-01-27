@@ -5,7 +5,8 @@ class TransitionAnimation {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 1.0); //* Начало анимации
+        const begin =
+            Offset(0.0, 1.0); //* Начало анимации (страница появляется снизу)
         const end = Offset.zero; //* Конечная точка
         const curve = Curves.ease;
 
@@ -50,6 +51,17 @@ abstract class DetailsTransitionAnimation extends TransitionAnimation {
                     ),
                   ),
                 ),
+                SlideTransition(
+                  position: Tween(
+                    begin:
+                        const Offset(0.0, 1.0), //* Текущая страница уходит вниз
+                    end: const Offset(0.0, 0.5), //* Останавливается на середине
+                  ).animate(CurvedAnimation(
+                    parent: animation,
+                    curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
+                  )),
+                  child: child,
+                ),
                 Opacity(
                   opacity: progress,
                   child: child,
@@ -60,8 +72,7 @@ abstract class DetailsTransitionAnimation extends TransitionAnimation {
           child: child,
         );
       },
-      transitionDuration: const Duration(milliseconds: 500), // Длительность анимации
+      transitionDuration: const Duration(milliseconds: 600),
     );
   }
 }
-
