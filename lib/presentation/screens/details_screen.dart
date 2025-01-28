@@ -1,9 +1,9 @@
-import 'package:bloc_to_do/constants/preferences.dart';
-import 'package:bloc_to_do/presentation/pages/details_page.dart';
-import 'package:bloc_to_do/presentation/widgets/bottom_button_widget.dart';
+import 'package:buzz_tech/constants/preferences.dart';
+import 'package:buzz_tech/presentation/pages/details_page.dart';
+import 'package:buzz_tech/presentation/widgets/bottom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bloc_to_do/logic/bloc/CompareTask/compare_task_bloc.dart';
+import 'package:buzz_tech/logic/bloc/CompareTask/compare_task_bloc.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});

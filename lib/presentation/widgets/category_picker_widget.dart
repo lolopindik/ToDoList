@@ -1,5 +1,5 @@
-import 'package:bloc_to_do/constants/preferences.dart';
-import 'package:bloc_to_do/logic/bloc/CategoryPicker/categorypicker_cubit.dart';
+import 'package:buzz_tech/constants/preferences.dart';
+import 'package:buzz_tech/logic/bloc/CategoryPicker/categorypicker_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';

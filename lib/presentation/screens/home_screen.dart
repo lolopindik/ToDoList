@@ -1,6 +1,6 @@
-import 'package:bloc_to_do/constants/preferences.dart';
-import 'package:bloc_to_do/presentation/pages/home_page.dart';
-import 'package:bloc_to_do/presentation/widgets/bottom_button_widget.dart';
+import 'package:buzz_tech/constants/preferences.dart';
+import 'package:buzz_tech/presentation/pages/home_page.dart';
+import 'package:buzz_tech/presentation/widgets/bottom_button_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {

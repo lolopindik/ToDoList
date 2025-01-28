@@ -1,8 +1,8 @@
-import 'package:bloc_to_do/constants/preferences.dart';
-import 'package:bloc_to_do/logic/bloc/CheckBox/check_box_bloc.dart';
-import 'package:bloc_to_do/logic/bloc/ComapeData/comapre_data_bloc.dart';
-import 'package:bloc_to_do/presentation/animations/fade_animation.dart';
-import 'package:bloc_to_do/presentation/widgets/home_lists_widgets.dart';
+import 'package:buzz_tech/constants/preferences.dart';
+import 'package:buzz_tech/logic/bloc/CheckBox/check_box_bloc.dart';
+import 'package:buzz_tech/logic/bloc/ComapeData/comapre_data_bloc.dart';
+import 'package:buzz_tech/presentation/animations/fade_animation.dart';
+import 'package:buzz_tech/presentation/widgets/home_lists_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';

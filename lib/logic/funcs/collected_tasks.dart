@@ -1,4 +1,4 @@
-import 'package:bloc_to_do/logic/services/notification_service.dart';
+import 'package:buzz_tech/logic/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

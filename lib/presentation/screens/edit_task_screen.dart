@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bloc_to_do/presentation/pages/task_page.dart';
-import 'package:bloc_to_do/presentation/widgets/task_bloc_consumer_widget.dart';
+import 'package:buzz_tech/presentation/pages/task_page.dart';
+import 'package:buzz_tech/presentation/widgets/task_bloc_consumer_widget.dart';
 
 class EditTask extends StatelessWidget {
   final Map<String, dynamic> task;
@@ -10,7 +10,8 @@ class EditTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: TaskConsumer(true, task: task).buildTaskBlocConsumer(context),
+      bottomNavigationBar:
+          TaskConsumer(true, task: task).buildTaskBlocConsumer(context),
       body: TaskPage().buildTaskPage(context, true, task),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:bloc_to_do/logic/funcs/collected_tasks.dart';
+import 'package:buzz_tech/logic/funcs/collected_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';

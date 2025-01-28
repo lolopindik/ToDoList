@@ -1,4 +1,4 @@
-import 'package:bloc_to_do/constants/preferences.dart';
+import 'package:buzz_tech/constants/preferences.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton {

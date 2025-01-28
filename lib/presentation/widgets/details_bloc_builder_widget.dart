@@ -1,11 +1,11 @@
 import 'dart:io';
-import 'package:bloc_to_do/constants/preferences.dart';
-import 'package:bloc_to_do/logic/bloc/CompareTask/compare_task_bloc.dart';
-import 'package:bloc_to_do/presentation/pages/details_page.dart';
+import 'package:buzz_tech/constants/preferences.dart';
+import 'package:buzz_tech/logic/bloc/CompareTask/compare_task_bloc.dart';
+import 'package:buzz_tech/presentation/pages/details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:bloc_to_do/logic/services/alert_dialog_service.dart';
+import 'package:buzz_tech/logic/services/alert_dialog_service.dart';
 
 class DetailsBlocBuilderWidget extends DetailsPage {
   Widget buildEditTaskBlocBuilder(BuildContext context) {

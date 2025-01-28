@@ -1,8 +1,8 @@
-import 'package:bloc_to_do/logic/services/notification_service.dart';
+import 'package:buzz_tech/logic/services/notification_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:bloc_to_do/logic/bloc/ComapeData/comapre_data_bloc.dart';
+import 'package:buzz_tech/logic/bloc/ComapeData/comapre_data_bloc.dart';
 
 part 'check_box_event.dart';
 part 'check_box_state.dart';

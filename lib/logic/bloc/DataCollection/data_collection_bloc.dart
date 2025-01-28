@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:bloc_to_do/logic/bloc/CategoryPicker/categorypicker_cubit.dart';
-import 'package:bloc_to_do/logic/bloc/DatePicker/datepicker_bloc.dart';
-import 'package:bloc_to_do/logic/bloc/TextFieldHandler/text_field_handler_bloc.dart';
-import 'package:bloc_to_do/logic/bloc/TimePicker/timepicker_bloc.dart';
-import 'package:bloc_to_do/logic/funcs/uuid.dart';
-import 'package:bloc_to_do/logic/services/notification_service.dart';
+import 'package:buzz_tech/logic/bloc/CategoryPicker/categorypicker_cubit.dart';
+import 'package:buzz_tech/logic/bloc/DatePicker/datepicker_bloc.dart';
+import 'package:buzz_tech/logic/bloc/TextFieldHandler/text_field_handler_bloc.dart';
+import 'package:buzz_tech/logic/bloc/TimePicker/timepicker_bloc.dart';
+import 'package:buzz_tech/logic/funcs/uuid.dart';
+import 'package:buzz_tech/logic/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';

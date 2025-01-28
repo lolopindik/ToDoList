@@ -1,4 +1,4 @@
-import 'package:bloc_to_do/logic/funcs/get_json.dart';
+import 'package:buzz_tech/logic/funcs/get_json.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'comapre_data_event.dart';

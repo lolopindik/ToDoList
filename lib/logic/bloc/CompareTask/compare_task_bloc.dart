@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:bloc_to_do/logic/funcs/get_json.dart';
+import 'package:buzz_tech/logic/funcs/get_json.dart';
 
 part 'compare_task_event.dart';
 part 'compare_task_state.dart';

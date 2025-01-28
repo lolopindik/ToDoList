@@ -1,6 +1,6 @@
-import 'package:bloc_to_do/logic/bloc/DataCollection/data_collection_bloc.dart';
-import 'package:bloc_to_do/logic/services/snackbar_service.dart';
-import 'package:bloc_to_do/presentation/widgets/bottom_button_widget.dart';
+import 'package:buzz_tech/logic/bloc/DataCollection/data_collection_bloc.dart';
+import 'package:buzz_tech/logic/services/snackbar_service.dart';
+import 'package:buzz_tech/presentation/widgets/bottom_button_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,13 +1,14 @@
-import 'package:bloc_to_do/constants/preferences.dart';
-import 'package:bloc_to_do/logic/bloc/CheckBox/check_box_bloc.dart';
-import 'package:bloc_to_do/logic/bloc/ComapeData/comapre_data_bloc.dart';
-import 'package:bloc_to_do/presentation/widgets/icons_widget.dart';
+import 'package:buzz_tech/constants/preferences.dart';
+import 'package:buzz_tech/logic/bloc/CheckBox/check_box_bloc.dart';
+import 'package:buzz_tech/logic/bloc/ComapeData/comapre_data_bloc.dart';
+import 'package:buzz_tech/presentation/widgets/icons_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ListBuilder {
-  Widget buildTopList(BuildContext context, List<Map<String, dynamic>> activeTasks) {
+  Widget buildTopList(
+      BuildContext context, List<Map<String, dynamic>> activeTasks) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.3,
       decoration: BoxDecoration(
@@ -101,7 +102,8 @@ class ListBuilder {
     );
   }
 
-  Widget buildBottomList(BuildContext context, List<Map<String, dynamic>> completedTasks) {
+  Widget buildBottomList(
+      BuildContext context, List<Map<String, dynamic>> completedTasks) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.30,
       decoration: BoxDecoration(
@@ -154,19 +156,20 @@ class ListBuilder {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.5,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
                                   child: Text(
                                     task['title'],
                                     style: ToDoTextStyles.black16.copyWith(
-                                    overflow: TextOverflow.ellipsis,
-                                    decoration: TextDecoration.lineThrough,
-                                  ),
+                                      overflow: TextOverflow.ellipsis,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
                                   ),
                                 ),
                                 Text(
                                   task['selectedTime'],
                                   style: ToDoTextStyles.black16.copyWith(
-                                    decoration: TextDecoration.lineThrough, 
+                                    decoration: TextDecoration.lineThrough,
                                   ),
                                 ),
                               ],

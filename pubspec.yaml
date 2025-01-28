@@ -1,7 +1,6 @@
-name: bloc_to_do
+name: buzz_tech
 
-#! 'Add here a normal description'
-description: ""
+description: "A small cross-platform application designed to record tasks and receive notifications about them."
 
 publish_to: 'none' 
 

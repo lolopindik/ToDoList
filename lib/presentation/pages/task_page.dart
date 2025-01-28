@@ -1,9 +1,9 @@
-import 'package:bloc_to_do/constants/preferences.dart';
-import 'package:bloc_to_do/presentation/animations/scale_animation.dart';
-import 'package:bloc_to_do/presentation/widgets/category_picker_widget.dart';
-import 'package:bloc_to_do/presentation/widgets/date_picker_widget.dart';
-import 'package:bloc_to_do/presentation/widgets/textfiled_handler_widget.dart';
-import 'package:bloc_to_do/presentation/widgets/time_picker_widget.dart';
+import 'package:buzz_tech/constants/preferences.dart';
+import 'package:buzz_tech/presentation/animations/scale_animation.dart';
+import 'package:buzz_tech/presentation/widgets/category_picker_widget.dart';
+import 'package:buzz_tech/presentation/widgets/date_picker_widget.dart';
+import 'package:buzz_tech/presentation/widgets/textfiled_handler_widget.dart';
+import 'package:buzz_tech/presentation/widgets/time_picker_widget.dart';
 import 'package:flutter/material.dart';
 
 class TaskPage {
