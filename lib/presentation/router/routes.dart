@@ -19,79 +19,101 @@ class AppRouter {
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case '/home':
-        return TransitionAnimation.createRoute(MultiBlocProvider(
-          providers: [
-            BlocProvider(
-                create: (context) => ComapreDataBloc(GetJson())..fetchData()),
-            BlocProvider(
-                create: (context) => CheckBoxBloc(ComapreDataBloc(GetJson())))
-          ],
-          child: const HomeScreen(),
-        ));
+        return _buildHomeRoute();
       case '/details':
-        final args = routeSettings.arguments as Map<String, dynamic>;
-        final String taskId = args['taskId'];
-        final Offset tapPosition = args['tapPosition'];
-
-        return DetailsTransitionAnimation.createRoute(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) =>
-                    CompareTaskBloc(GetJson())..fetchTaskById(taskId),
-              ),
-            ],
-            child: const DetailsScreen(),
-          ),
-          tapPosition,
-        );
+        return _buildDetailsRoute(routeSettings);
       case '/add_task':
-        return TransitionAnimation.createRoute(MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (context) => DatepickerBloc()),
-            BlocProvider(create: (context) => TimepickerBloc()),
-            BlocProvider(create: (context) => TextFieldHandlerBloc()),
-            BlocProvider(create: (context) => CategorypickerCubit()),
-            BlocProvider(
-              create: (context) => DataCollectionBloc(
-                context.read<CategorypickerCubit>(),
-                context.read<DatepickerBloc>(),
-                context.read<TextFieldHandlerBloc>(),
-                context.read<TimepickerBloc>(),
-              ),
-            ),
-          ],
-          child: const TaskScreen(),
-        ));
+        return _buildAddTaskRoute();
       case '/edit_task':
-        final task = routeSettings.arguments as Map<String, dynamic>;
-        return TransitionAnimation.createRoute(MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (context) => DatepickerBloc()),
-            BlocProvider(create: (context) => TimepickerBloc()),
-            BlocProvider(create: (context) => TextFieldHandlerBloc()),
-            BlocProvider(create: (context) => CategorypickerCubit()),
-            BlocProvider(
-              create: (context) => DataCollectionBloc(
-                context.read<CategorypickerCubit>(),
-                context.read<DatepickerBloc>(),
-                context.read<TextFieldHandlerBloc>(),
-                context.read<TimepickerBloc>(),
-              ),
-            ),
-          ],
-          child: EditTask(task: task),
-        ));
+        return _buildEditTaskRoute(routeSettings);
       default:
-        return TransitionAnimation.createRoute(MultiBlocProvider(
-          providers: [
-            BlocProvider(
-                create: (context) => ComapreDataBloc(GetJson())..fetchData()),
-            BlocProvider(
-                create: (context) => CheckBoxBloc(ComapreDataBloc(GetJson())))
-          ],
-          child: const HomeScreen(),
-        ));
+        return _buildHomeRoute();
     }
+  }
+
+  Route _buildHomeRoute() {
+    return TransitionAnimation.createRoute(
+      MultiBlocProvider(
+        providers: [
+          BlocProvider(
+              create: (context) => ComapreDataBloc(GetJson())..fetchData()),
+          BlocProvider(
+              create: (context) =>
+                  CheckBoxBloc(context.read<ComapreDataBloc>())),
+        ],
+        child: const HomeScreen(),
+      ),
+    );
+  }
+
+  Route _buildDetailsRoute(RouteSettings routeSettings) {
+    if (routeSettings.arguments is! Map<String, dynamic>) {
+      throw FlutterError('Invalid arguments for /details route');
+    }
+    final args = routeSettings.arguments as Map<String, dynamic>;
+    final String taskId = args['taskId'];
+    final Offset tapPosition = args['tapPosition'];
+
+    return DetailsTransitionAnimation.createRoute(
+      MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) =>
+                CompareTaskBloc(GetJson())..fetchTaskById(taskId),
+          ),
+        ],
+        child: const DetailsScreen(),
+      ),
+      tapPosition,
+    );
+  }
+
+  Route _buildAddTaskRoute() {
+    return TransitionAnimation.createRoute(
+      MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => DatepickerBloc()),
+          BlocProvider(create: (context) => TimepickerBloc()),
+          BlocProvider(create: (context) => TextFieldHandlerBloc()),
+          BlocProvider(create: (context) => CategorypickerCubit()),
+          BlocProvider(
+            create: (context) => DataCollectionBloc(
+              context.read<CategorypickerCubit>(),
+              context.read<DatepickerBloc>(),
+              context.read<TextFieldHandlerBloc>(),
+              context.read<TimepickerBloc>(),
+            ),
+          ),
+        ],
+        child: const TaskScreen(),
+      ),
+    );
+  }
+
+  Route _buildEditTaskRoute(RouteSettings routeSettings) {
+    if (routeSettings.arguments is! Map<String, dynamic>) {
+      throw FlutterError('Invalid arguments for /edit_task route');
+    }
+    final task = routeSettings.arguments as Map<String, dynamic>;
+
+    return TransitionAnimation.createRoute(
+      MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => DatepickerBloc()),
+          BlocProvider(create: (context) => TimepickerBloc()),
+          BlocProvider(create: (context) => TextFieldHandlerBloc()),
+          BlocProvider(create: (context) => CategorypickerCubit()),
+          BlocProvider(
+            create: (context) => DataCollectionBloc(
+              context.read<CategorypickerCubit>(),
+              context.read<DatepickerBloc>(),
+              context.read<TextFieldHandlerBloc>(),
+              context.read<TimepickerBloc>(),
+            ),
+          ),
+        ],
+        child: EditTask(task: task),
+      ),
+    );
   }
 }
