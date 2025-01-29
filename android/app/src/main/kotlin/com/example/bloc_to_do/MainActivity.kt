@@ -1,4 +1,4 @@
-package com.example.bloc_to_do
+package com.example.buzz_tech
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
