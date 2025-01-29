@@ -146,7 +146,8 @@ class DetailsBlocBuilderWidget extends DetailsPage {
                 child: FloatingActionButton(
                   backgroundColor: ToDoColors.mainColor,
                   onPressed: () {
-                    AlertDialogService.showDeleteDialog(context, task);
+                    AlertDialogService alertDialogService = AlertDialogService();
+                    alertDialogService.showDeleteDialog(context, task);
                   },
                   child: const Icon(
                     Icons.delete,

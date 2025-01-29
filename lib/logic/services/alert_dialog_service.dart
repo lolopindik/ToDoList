@@ -4,26 +4,32 @@ import 'package:flutter/cupertino.dart';
 import 'dart:io';
 
 class AlertDialogService {
-  static void showDeleteDialog(
-      BuildContext context, Map<String, dynamic> task) {
+
+  final String tittle = 'Delete task';
+  final String question = 'Are you sure you want to delete this task?';
+  final String button_1 = 'Cancel';
+  final String button_2 = 'Delete';
+
+  Future<void> showDeleteDialog(
+      BuildContext context, Map<String, dynamic> task) async {
     if (Platform.isIOS) {
       showCupertinoDialog(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
-          title: const Text('Удалить задачу'),
-          content: const Text('Вы уверены, что хотите удалить эту задачу?'),
+          title: Text(tittle),
+          content: Text(question),
           actions: <CupertinoDialogAction>[
             CupertinoDialogAction(
               isDefaultAction: true,
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Отмена'),
+              child: Text(button_1),
             ),
             CupertinoDialogAction(
               isDestructiveAction: true,
               onPressed: () => CollectedTasks().deleteTask(context, task),
-              child: const Text('Удалить'),
+              child: Text(button_2),
             ),
           ],
         ),
@@ -32,18 +38,18 @@ class AlertDialogService {
       showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text('Удалить задачу'),
-          content: const Text('Вы уверены, что хотите удалить эту задачу?'),
+          title: Text(tittle),
+          content: Text(question),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Отмена'),
+              child: Text(button_1),
             ),
             TextButton(
               onPressed: () => CollectedTasks().deleteTask(context, task),
-              child: const Text('Удалить'),
+              child: Text(button_2),
             ),
           ],
         ),
