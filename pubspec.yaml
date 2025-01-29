@@ -30,6 +30,7 @@ dependencies:
   intl: ^0.19.0
   #* Notifications
   timezone: ^0.10.0
+  flutter_app_badge_control: ^0.0.2
   #* Android/ios
   flutter_local_notifications: ^18.0.1
   #* Windows
