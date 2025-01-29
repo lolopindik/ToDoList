@@ -58,7 +58,7 @@ class HomePage {
                       FadeAnimation().createAnimation(
                         context,
                         const Text(
-                          'Bloc ToDo List',
+                          'BuzzTech List',
                           style: ToDoTextStyles.white30,
                         ),
                       ),
