@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/timezone.dart' as tz; // Import timezone
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -89,6 +90,12 @@ class NotificationService {
       await flutterLocalNotificationsPlugin.cancel(id);
     } catch (e) {
       debugPrint('Error canceling notification: $e');
+    }
+  }
+
+  Future<void> requestNotificationPermission() async {
+    if (await Permission.notification.isDenied) {
+      await Permission.notification.request();
     }
   }
 
